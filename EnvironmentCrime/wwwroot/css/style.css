@@ -1,0 +1,291 @@
+﻿/* Remove the (often) set default spacing
+ * made by the browsers on either html or body.
+ *********************************************/
+html, body
+{
+	padding: 0;
+	margin: 0;
+}
+
+/* Generel text properties.
+ * Also the background for the entire page.
+ *********************************************/
+body
+{
+	color: #362f2d;
+	font: 90% Arial, sans-serif;
+	background: #e0e0e0 url(../images/background.png) repeat scroll left top;
+}
+
+/* Headers
+ *********************************************/
+h1, h2, h3, h4, h6
+{
+	color: #309c3f;
+}
+
+/* Links
+ *********************************************/
+a
+{
+	color: #f7941d;
+}
+a:hover, a:focus, a:active
+{
+	color: #8c3a14;
+	text-decoration: none;
+}
+
+/* Form inputs
+ *********************************************/
+input, textarea, select
+{
+	font: 100% Arial, sans-serif;
+	background: #bfbfbf;
+	padding: 0.5em 0.3em;
+	border: 0 none;
+	margin: 0.2em 0;
+	
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+input[name="reason"]{
+	margin-left: 1.4em;
+}
+
+input:focus, textarea:focus, select:focus
+{
+	color: #fff;
+	background: #888;
+}
+
+/* Tables
+ *********************************************/
+table
+{
+	width: 100%;
+}
+tr:nth-child(even)
+{
+	background: #eee;
+}
+th
+{
+	font-weight: bolder;
+	text-align: left;
+}
+th, td
+{
+	padding: 0.5em 1em;
+}
+
+
+/* Intended for short information about
+ * the page beneth the content header.
+ *********************************************/
+.info
+{
+	color: #20692a;
+	font-style: italic;
+	margin: 0 0 2em 1em;
+}
+
+/* Buttons
+ * Note: configured to work on both inputs
+ * and links.
+ *********************************************/
+.button
+{
+	color: #ffffff;
+	text-decoration: none;
+	background: #309c3f url(../images/button.png) repeat-x scroll left top;
+	width: auto;
+	padding: 0.5em 1em;
+	border: 1px solid #20692a;
+	cursor: pointer;
+	margin: 0.2em 0;
+	display: inline-block;
+	
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.button:hover, .button:focus, .button:active
+{
+	color: #ffffff;
+	background: #37b048 url(../images/buttonHover.png) repeat-x scroll left top;
+}
+
+/* Align content to the right.
+ *********************************************/
+.right
+{
+	text-align: right;
+	float: right;
+}
+
+/* Label
+ *********************************************/
+.label
+{
+	font-weight: bold;
+}
+
+/* Should contain all elements on the page.
+ *********************************************/
+#wrapper
+{
+	width: 80%;
+	min-width: 650px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+/*Header
+ *********************************************/
+header
+{
+	margin: 2.5em 2%;
+}
+header h1
+{
+	text-transform: uppercase;
+}
+header h1, header p
+{
+	margin: 0;
+}
+
+/* Navigation
+ *********************************************/
+nav
+{
+	background: #362f2d url(../images/menu.png) repeat-x scroll left top;
+	list-style: none;
+	padding: 1em 1em;
+	margin: 0;
+	border: 1px solid #0f0d0d;
+	
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+}
+nav ul{
+	margin:0;
+	padding: 0;
+}
+nav li
+{
+	display: inline-block;
+}
+nav a
+{
+	color: #fff;
+	text-decoration: none;
+	padding: 0.8em 1em;
+	display: block;
+}
+nav a:hover, nav a:focus, nav a:active
+{
+	color: #f7941d;
+}
+
+nav a.reports, nav a.reportAdd, nav a.login, nav a.logout
+{
+	background-color: #0F0D0D;
+	background-repeat: no-repeat;
+	background-position: 1em center;
+	
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+nav a.reports
+{
+	background-image: url(../images/report.png);
+	padding-left: 2.6em;
+}
+nav a.reportAdd
+{
+	background-image: url(../images/report_add.png);
+	padding-left: 2.6em;
+}
+nav a.login
+{
+	background-image: url(../images/login.png);
+	padding-left: 2.6em;
+}
+nav a.logout
+{
+	background-image: url(../images/logout.png);
+	padding-left: 2.6em;
+}
+
+/*
+ *********************************************/
+#content
+{
+	background-color: #fafafa;
+	padding: 1em 2%;
+	margin: 1em 0;
+	
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+}
+
+/* Side-by-side columns that act where one is
+ * for main content, meaning it occupies more
+ * space, and the other as a sidebar.
+ *********************************************/
+#mainColumn
+{
+	width: 65%;
+	float: left;
+}
+#sideColumn
+{
+	text-align: right;
+	width: 35%;
+	float: right;
+}
+#sideColumn img
+{
+	max-width: 100%;
+}
+
+/* Left and right column are go side-by-side
+ * splitting the width in half.
+ * The bottom column will occupie the entire
+ * space in width. But it's written to be
+ * able to handle the float problem of
+ * the left and right columns being above.
+ *********************************************/
+#leftColumn, #rightColumn
+{
+	width: 50%;
+	float: left;
+}
+#rightColumn
+{
+	float: right;
+
+}
+#bottomColumn
+{
+	float: none;
+	clear: both;
+}
+
+/* Copyright information
+ *********************************************/
+footer
+{
+	font-size: 90%;
+	text-align: center;
+	padding: 2em 0 1em;
+	float: none;
+	clear: both;
+}
