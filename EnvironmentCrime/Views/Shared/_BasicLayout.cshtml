@@ -1,0 +1,23 @@
+﻿@{ 
+    Layout = "_HeaderLayout";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index">Hem</a></li>
+            <li><a asp-controller="Home" asp-action="Services">Tjänster</a></li>
+            <li><a asp-controller="Home" asp-action="FAQ">FAQ</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+            <li class="right"><a class="login" href="login.html">Logga in (endast personal)</a></li>
+        </ul>
+    </nav><!-- End Nav -->
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

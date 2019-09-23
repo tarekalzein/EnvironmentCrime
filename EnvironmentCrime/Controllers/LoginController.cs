@@ -8,29 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EnvironmentCrime.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         // GET: /<controller>/
-        public ViewResult Index()
+        public ViewResult Login()
         {
             return View();
         }
-
-        public ViewResult Services()
-        {
-            return View();
-        }
-
-        public ViewResult Contact()
-        {
-            return View();
-        }
-
-        public ViewResult FAQ()
-        {
-            return View();
-        }
-
-
     }
 }
