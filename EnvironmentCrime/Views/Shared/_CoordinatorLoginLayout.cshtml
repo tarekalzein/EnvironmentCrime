@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_HeaderLayout";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a class="reports" onclick="location.href='@Url.Action("StartCoordinator", "Coordinator")'">Start(Ärenden)</a></li>
+            <li><a class="reportAdd" onclick="location.href='@Url.Action("ReportCrime", "Coordinator")'">Rapportera brott</a></li>
+            <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
+
+        </ul>
+
+    </nav><!-- End Nav -->
+    <div id="content">
+        @RenderBody()
+
+        <footer>
+            &copy; Småstads Kommun All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>
