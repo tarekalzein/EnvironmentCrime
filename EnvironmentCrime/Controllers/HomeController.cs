@@ -31,6 +31,15 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
+        public ViewResult Validate()
+        {
+            return View();
+        }
+
+        public ViewResult Thanks()
+        {
+            return View();
+        }
 
     }
 }
