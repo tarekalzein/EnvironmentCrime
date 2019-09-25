@@ -5,6 +5,12 @@
     Layout = "_LoginLayout";
 }
 
+@section toolbar{   <ul>
+        <li><a class="reports" onclick="location.href='@Url.Action("StartInvestigator", "Investigator")'">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
+
+    </ul>}
+
 <h2>Detaljer för ärendet</h2>
 <p class="info">Du är inloggad som handläggare</p>
 <h3>Ärende: 2014-45-0201</h3>

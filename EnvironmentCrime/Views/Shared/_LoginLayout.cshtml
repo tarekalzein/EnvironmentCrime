@@ -9,11 +9,7 @@
 <body>
 
     <nav>
-        <ul>
-            <li><a class="reports" onclick="location.href='@Url.Action("StartCoordinator", "Coordinator")'">Start(Ärenden)</a></li>
-            <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
-
-        </ul>
+        @RenderSection("toolbar")
 
     </nav><!-- End Nav -->
     <div id="content">
