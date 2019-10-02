@@ -5,8 +5,8 @@
     Layout = "_LoginLayout";
 }
 @section toolbar{   <ul>
-    <li><a class="reports" onclick="location.href='@Url.Action("StartManager", "Manager")'">Start(Ärenden)</a></li>
-    <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
+    <li><a class="reports" asp-controller="Manager" asp-action="StartManager">Start(Ärenden)</a></li>
+    <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
 
 </ul>}
 

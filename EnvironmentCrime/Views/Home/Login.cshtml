@@ -24,8 +24,10 @@
             <input class="button" type="submit" value="Inloggning av samordnare" />
             <br />
             <!--Dessa länkar ska sedan tas bort då det är meningen att vid kontrollen av inloggningsuppgifter så hämtas rätt sida-->
-            <a button class="button" onclick="location.href='@Url.Action("StartManager","Manager")'">Inloggning av chefer</a><br />
-            <a class="button" onclick="location.href='@Url.Action("StartInvestigator","Investigator")'">Inloggning av handläggare</a>
+            
+            <a button class="button" asp-controller="Manager" asp-action="StartManager">Inloggning av chefer</a><br />
+            <a class="button" asp-controller="Investigator" asp-action="StartInvestigator">Inloggning av handläggare</a>
+
         </p>
     </form>
 </section><!-- End Left -->

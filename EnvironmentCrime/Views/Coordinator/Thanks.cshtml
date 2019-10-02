@@ -4,14 +4,15 @@
 @{
     Layout = "_CoordinatorLoginLayout";
 }
+<section id="mainColumn">
+    <h2>Tack för din anmälan</h2>
+    <p class="info">Du är inloggad som samordnare</p>
 
-<h2>Tack för din anmälan</h2>
-<p class="info">Du är inloggad som samordnare</p>
+    <p>
+        Anmälan har nu skickats in till kommunen och kommer att utredas. <br />
+        Vill du komplettera din anmälan kontakta oss via mail eller telefon. <br />
+        Ange då nummer: 2014-45-0201
+    </p>
 
-<p>
-    Anmälan har nu skickats in till kommunen och kommer att utredas. <br />
-    Vill du komplettera din anmälan kontakta oss via mail eller telefon. <br />
-    Ange då nummer: 2014-45-0201
-</p>
-
-<p><a button class="button" onclick="location.href='@Url.Action("Index", "Home")'">Avsluta</a></p>
+    <p><a button class="button" asp-controller="Coordinator" asp-action="StartCoordinator">Avsluta</a></p>
+</section><!-- End Left -->
