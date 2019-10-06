@@ -1,7 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
+    @model IEnumerable<Errand>
     Layout = "_LoginLayout";
 }
 
@@ -47,60 +46,16 @@
         <th>Avdelning</th>
         <th>Handläggare</th>
     </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0201</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Ej startad</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ingen utredare satt</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0202</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Pågående</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ada Bengtsson</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0203</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Ej startad</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ingen utredare satt</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0204</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Ej startad</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ingen utredare satt</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0205</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Pågående</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Bengt Cederström</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0206</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Ej startad</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ingen utredare satt</td>
-    </tr>
-    <tr>
-        <td>2014-05-01</td>
-        <td><a asp-controller="Investigator" asp-action="CrimeInvestigator">2014-45-0206</a></td>
-        <td>Oljeutsläpp</td>
-        <td>Ej startad</td>
-        <td>Tekniska avloppshanteringen</td>
-        <td>Ingen utredare satt</td>
-    </tr>
+
+    @foreach (Errand errand in Model)
+    {
+        <tr>
+            <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>
+            <td><a asp-controller="Coordinator" asp-action="CrimeCoordinator">@errand.ErrandID</a></td>
+            <td>@errand.TypeOfCrime</td>
+            <td>@errand.StatusId</td>
+            <td>@errand.DepartmentId</td>
+            <td>@errand.EmployeeId</td>
+        </tr>
+    }
 </table>
