@@ -1,9 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    @model Errand
 }
-
+    <style>
+        .error {
+            font-weight: bold;
+            color: #f00;
+        }
+    </style>
 
     <section id="mainColumn">
         <h2>Välkommen att fylla i din anmälan av miljöbrott</h2>
@@ -13,32 +16,35 @@
 
         <!--form method="post" action="citizen/validate.html"-->
         <form asp-controller="Home" asp-action="Validate" method="post">
+            <div  asp-validation-summary="All" class="error"></div>
             <p>
+               
                 <input type="hidden" name="isSubmitted" value="true" />
             </p>
             <p>
                 <span class="label">Var har brottet skett någonstans?</span><br />
-                <input type="text" name="place" /> *
+
+                <input asp-for="Place" /> *
             </p>
             <p>
                 <span class="label">Vilken typ av brott?</span><br />
-                <input type="text" name="crime" /> *
+                <input asp-for="TypeOfCrime" /> *
             </p>
             <p>
                 <span class="label">När skedde brottet?</span><br />
-                <input type="text" name="crimeDate" /> *
+                <input asp-for="DateOfObservation" asp-format="{0:yyyy/MM/dd}" /> *
             </p>
             <p>
                 <span class="label">Ditt namn (för- och efternamn):</span><br />
-                <input type="text" name="informersName" /> *
+                <input asp-for="InformerName" /> *
             </p>
             <p>
                 <span class="label">Din telefon:</span><br />
-                <input type="text" name="phone" /> *
+                <input asp-for="InformerPhone" /> *
             </p>
             <p>
                 <span class="label">Beskriv din observation<br /> (ex. namn på misstänkt person):</span><br />
-                <textarea name="observation" rows="5" cols="16"></textarea>
+                <textarea asp-for="Observation" rows="5" cols="16"></textarea>
             </p>
             <p>
                 <input class="button" type="submit" value="Skicka in" />

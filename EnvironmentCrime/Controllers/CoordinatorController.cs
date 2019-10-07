@@ -35,9 +35,18 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-        public ViewResult Validate()
+        public ViewResult Validate(Errand errand)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+
+                return View(errand);
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         public ViewResult Thanks()
