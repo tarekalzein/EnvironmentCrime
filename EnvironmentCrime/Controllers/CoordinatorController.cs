@@ -29,9 +29,12 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-        public ViewResult CrimeCoordinator()
+        public ViewResult CrimeCoordinator(string id)
         {
-            return View();
+            var errandDetail = from td in repository.Errands
+                               where td.ErrandID == id
+                               select td;
+            return View(errandDetail);
         }
 
         public ViewResult Validate()

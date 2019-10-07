@@ -56,7 +56,8 @@
     {
 <tr>
     <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>
-    <td><a asp-controller="Coordinator" asp-action="CrimeCoordinator">@errand.ErrandID</a></td>
+    <td><a asp-controller="Coordinator" asp-action="CrimeCoordinator" asp-route-id="@errand.ErrandID">@errand.ErrandID</a></td>
+
     <td>@errand.TypeOfCrime</td>
     <td>@errand.StatusId</td>
     <td>@errand.DepartmentId</td>

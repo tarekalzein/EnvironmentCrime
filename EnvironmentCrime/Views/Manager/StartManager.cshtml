@@ -59,13 +59,13 @@
     </tr>
     @foreach (Errand errand in Model)
     {
-        <tr>
-            <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>
-            <td><a asp-controller="Coordinator" asp-action="CrimeCoordinator">@errand.ErrandID</a></td>
-            <td>@errand.TypeOfCrime</td>
-            <td>@errand.StatusId</td>
-            <td>@errand.DepartmentId</td>
-            <td>@errand.EmployeeId</td>
-        </tr>
+<tr>
+    <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>
+    <td><a asp-controller="Manager" asp-action="CrimeManager" asp-route-id="@errand.ErrandID">@errand.ErrandID</a></td>
+    <td>@errand.TypeOfCrime</td>
+    <td>@errand.StatusId</td>
+    <td>@errand.DepartmentId</td>
+    <td>@errand.EmployeeId</td>
+</tr>
     }
 </table>
