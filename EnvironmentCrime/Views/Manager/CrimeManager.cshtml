@@ -14,84 +14,26 @@
 
 <h2>Detaljer för ärendet</h2>
 <p class="info">Du är inloggad som avdelningschef</p>
-@foreach (Errand errand in Model)
-{
-    <h3>Ärende: @errand.ErrandID</h3>
 
-    <section id="leftColumn">
-        <h3>Anmälan</h3>
-        <p>
-            <span class="label">Typ av brott:</span><br />
-            @errand.TypeOfCrime
-        </p>
-        <p>
-            <span class="label">Brottsplats: </span><br />
-            @errand.Place
-        </p>
-        <p>
-            <span class="label">Brottsdatum: </span><br />
-            @errand.DateOfObservation
-        </p>
-        <p>
-            <span class="label">Anmälare: </span><br />
-            @errand.InformerName
-        </p>
-        <p>
-            <span class="label">Telefon: </span><br />
-            @errand.InformerPhone
-        </p>
-        <p>
-            <span class="label">Observationer:</span><br />
-            @errand.Observation
-        </p>
-    </section>
+<!--ComponentView-->
+@await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+<!--End of ComponentView-->
 
-    <section id="rightColumn">
-        <h3>Utredning</h3>
-        <p>
-            <span class="label">Status:</span><br />
-            @errand.StatusId
-        </p>
-        <p>
-            <span class="label">Ansvarig avdelning: </span><br />
-            @errand.DepartmentId
-        </p>
-        <p>
-            <span class="label">Handläggare: </span><br />
-            @errand.EmployeeId
-        </p>
-        <p>
-            <span class="label">Provtagning: </span><br />
-            Provtagning.pdf
-        </p>
-        <p>
-            <span class="label">Ytterligare information: </span><br />
-            @errand.InvestigatorInfo
-        </p>
-        <p>
-            <span class="label">Händelser: </span><br />
-            @errand.InvestigatorAction
-        </p>
-        <p>
-            <span class="label">Bilder: </span><br />
-            <img src="../images/imagetest.jpg" alt="klicka på bilden" />
-        </p>
-    </section>
 
-    <section id="bottomColumn">
-        <h3>Redigera ärende</h3>
-        <p>
-            Ange handläggare:
-            <select name="investigator">
-                <option selected="selected">Välj</option>
-                <option value="inv1">Ada Bengtsson</option>
-                <option value="inv2">Bengt Cederström</option>
-                <option value="inv3">Cecilia Danielsson</option>
-                <option value="inv4">David Ekström</option>
-                <option value="inv5">Erik Falkenberg</option>
-            </select>
-        </p>
-        <p><input type="checkbox" name="noAction" value="true" /> Ingen åtgärd: <input type="text" name="reason" value="Ange motivering" /></p>
-        <p><input class="button" type="submit" value="Spara" /></p>
-    </section>
-}
+
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <p>
+        Ange handläggare:
+        <select name="investigator">
+            <option selected="selected">Välj</option>
+            <option value="inv1">Ada Bengtsson</option>
+            <option value="inv2">Bengt Cederström</option>
+            <option value="inv3">Cecilia Danielsson</option>
+            <option value="inv4">David Ekström</option>
+            <option value="inv5">Erik Falkenberg</option>
+        </select>
+    </p>
+    <p><input type="checkbox" name="noAction" value="true" /> Ingen åtgärd: <input type="text" name="reason" value="Ange motivering" /></p>
+    <p><input class="button" type="submit" value="Spara" /></p>
+</section>

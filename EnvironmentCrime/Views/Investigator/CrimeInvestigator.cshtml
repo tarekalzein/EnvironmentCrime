@@ -8,99 +8,39 @@
         <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
 
     </ul>}
-@foreach (Errand errand in Model)
-{
-    <h2>Detaljer för ärendet</h2>
-    <p class="info">Du är inloggad som handläggare</p>
-    <h3>Ärende: @errand.ErrandID</h3>
+<h2>Detaljer för ärendet</h2>
+<p class="info">Du är inloggad som handläggare</p>
 
-    <!--Nedan ser man en lista på ärenden-->
+<!--ComponentView-->
+@await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+<!--End of ComponentView-->
 
-    <section id="leftColumn">
-        <h3>Anmälan</h3>
-        <p>
-            <span class="label">Typ av brott:</span><br />
-            @errand.TypeOfCrime
-        </p>
-        <p>
-            <span class="label">Brottsplats: </span><br />
-            @errand.Place
-        </p>
-        <p>
-            <span class="label">Brottsdatum: </span><br />
-            @errand.DateOfObservation
-        </p>
-        <p>
-            <span class="label">Anmälare: </span><br />
-            @errand.InformerName
-        </p>
-        <p>
-            <span class="label">Telefon: </span><br />
-            @errand.InformerPhone
-        </p>
-        <p>
-            <span class="label">Observationer:</span><br />
-            @errand.Observation
-        </p>
-    </section>
 
-    <section id="rightColumn">
-        <h3>Utredning</h3>
-        <p>
-            <span class="label">Status:</span><br />
-            @errand.StatusId
-        </p>
-        <p>
-            <span class="label">Ansvarig avdelning: </span><br />
-            @errand.DepartmentId
-        </p>
-        <p>
-            <span class="label">Handläggare: </span><br />
-            @errand.EmployeeId
-        </p>
-        <p>
-            <span class="label">Provtagning: </span><br />
-            Provtagning.pdf
-        </p>
-        <p>
-            <span class="label">Ytterligare information: </span><br />
-            @errand.InvestigatorInfo
-        </p>
-        <p>
-            <span class="label">Händelser: </span><br />
-            @errand.InvestigatorAction
-        </p>
-        <p>
-            <span class="label">Bilder: </span><br />
-            <img src="../images/imagetest.jpg" alt="klicka på bilden" />
-        </p>
-    </section>
 
-    <section id="bottomColumn">
-        <h3>Redigera ärende</h3>
-        <p class="label">Händelser:</p>
-        <textarea name="events" rows="5" cols="60"></textarea>
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <p class="label">Händelser:</p>
+    <textarea name="events" rows="5" cols="60"></textarea>
 
-        <p class="label">Mer information:</p>
-        <textarea name="information" rows="5" cols="60"></textarea>
+    <p class="label">Mer information:</p>
+    <textarea name="information" rows="5" cols="60"></textarea>
 
-        <p class="label">Prover:</p>
-        <input type="file" name="loadSample" />
+    <p class="label">Prover:</p>
+    <input type="file" name="loadSample" />
 
-        <p class="label">Ladda upp bilder:</p>
-        <input type="file" name="loadImage" />
+    <p class="label">Ladda upp bilder:</p>
+    <input type="file" name="loadImage" />
 
-        <p class="label">Ändring av status:</p>
-        <select name="status">
-            <option selected="selected">Välj</option>
-            <option value="stat1">Inrapporterad</option>
-            <option value="stat2">Ingen Åtgärd</option>
-            <option value="stat3">Påbörjad</option>
-            <option value="stat4">Klar</option>
-        </select>
+    <p class="label">Ändring av status:</p>
+    <select name="status">
+        <option selected="selected">Välj</option>
+        <option value="stat1">Inrapporterad</option>
+        <option value="stat2">Ingen Åtgärd</option>
+        <option value="stat3">Påbörjad</option>
+        <option value="stat4">Klar</option>
+    </select>
 
-        <p>
-            <input class="button" type="submit" value="Spara ändringarna" />
-        </p>
-    </section>
-}
+    <p>
+        <input class="button" type="submit" value="Spara ändringarna" />
+    </p>
+</section>

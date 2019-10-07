@@ -25,10 +25,8 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult CrimeInvestigator(string id)
         {
-            var errandDetail = from td in repository.Errands
-                               where td.ErrandID == id
-                               select td;   
-            return View(errandDetail);
+            ViewBag.ID = id;
+            return View();
         }
     }
 }
