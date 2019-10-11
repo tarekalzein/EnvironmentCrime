@@ -2,7 +2,7 @@
     @model Errand
 }
 
-    <h3>Ärende:  @Model.ErrandId</h3>
+    <h3>Ärende:  @Model.RefNumber</h3>
     <section id="leftColumn">
         <h3>Anmälan</h3>
         <p>
@@ -15,7 +15,7 @@
         </p>
         <p>
             <span class="label">Brottsdatum: </span><br />
-            @Model.DateOfObservation
+            @Model.DateOfObservation.ToString("yyyy/MM/dd")
         </p>
         <p>
             <span class="label">Anmälare: </span><br />
