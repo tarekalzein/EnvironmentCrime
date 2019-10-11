@@ -23,7 +23,7 @@ namespace EnvironmentCrime.Controllers
             return View(repository.Errands);
         }
 
-        public ViewResult CrimeInvestigator(string id)
+        public ViewResult CrimeInvestigator(int id)
         {
             ViewBag.ID = id;
             return View();
