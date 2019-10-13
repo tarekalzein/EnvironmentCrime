@@ -15,6 +15,7 @@ namespace EnvironmentCrime.Models
         }
 
         public IQueryable<Errand> Errands => context.Errands;
+        public IQueryable<Sequence> Sequences => context.Sequences;
         public Task<Errand> GetErrandDetail(int id)
         {
             return Task.Run(() =>
@@ -23,5 +24,32 @@ namespace EnvironmentCrime.Models
                 return errandDetail;
             });
         }
+
+        public string SaveErrand (Errand errand)
+        {
+            if(errand.ErrandId==0)
+            {
+                context.Errands.Add(errand);
+            }
+            context.SaveChanges();
+
+            return errand.RefNumber;
+        }
+
+        public int GetSequence()
+        {
+            var sequenceDetail = Sequences.Where(sq => sq.Id == 1).First();
+            return sequenceDetail.CurrentValue;
+        }
+        public void UpdateSequence()
+        {
+            Sequence dbEntry = context.Sequences.FirstOrDefault(sq => sq.Id == 1);
+            dbEntry.CurrentValue += 1;
+            context.SaveChanges();
+        }
+        
+
+
+
     }
 }

@@ -23,5 +23,20 @@ namespace EnvironmentCrime.Models
                 return errandDetail;
             });
         }
+
+        public int GetSequence()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string SaveErrand(Errand errand)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateSequence()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

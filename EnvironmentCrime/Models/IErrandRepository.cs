@@ -10,5 +10,11 @@ namespace EnvironmentCrime.Models
     {
         IQueryable<Errand> Errands { get; }
         Task<Errand> GetErrandDetail(int id);
+
+        string SaveErrand(Errand errand);
+
+        int GetSequence();
+
+        void UpdateSequence();
     }
 }

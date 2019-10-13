@@ -8,6 +8,14 @@ namespace EnvironmentCrime.Controllers
 {
     public class HomeController : Controller
     {
+
+        private IErrandRepository repository;
+
+        public HomeController(IErrandRepository repo)
+        {
+            repository = repo;
+        }
+
         // GET: /<controller>/
         public ViewResult Index()
         {
@@ -53,8 +61,23 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult Thanks()
         {
-            HttpContext.Session.Remove("NewErrand");
-            return View();
+            Errand errand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            if (errand == null)
+            {
+                return View();
+            }
+            else
+            {
+                int sequenceValue = repository.GetSequence();
+                errand.RefNumber = "2018-45-" + sequenceValue;
+                ViewBag.NewErrandRefNumber = errand.RefNumber;
+                errand.StatusId = "S_A";
+                repository.UpdateSequence();
+                repository.SaveErrand(errand);
+                HttpContext.Session.Remove("NewErrand");
+                return View(errand);
+            }
+         
         }
 
     }
