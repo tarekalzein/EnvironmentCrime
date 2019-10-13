@@ -24,6 +24,7 @@ namespace EnvironmentCrime
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddSession();
             services.AddTransient<IErrandRepository, EFErrandRepository>();
             services.AddMvc();
         }
@@ -35,7 +36,7 @@ namespace EnvironmentCrime
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSession();
             app.UseMvcWithDefaultRoute();
             app.UseStatusCodePages();
             app.UseStaticFiles();

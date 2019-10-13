@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EnvironmentCrime.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using EnvironmentCrime.Infrastructure;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,7 +29,14 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult ReportCrime()
         {
-            return View();
+            var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            if (errand == null)
+            {
+                return View();
+            }else
+            {
+                return View(errand);
+            }
         }
 
         public ViewResult CrimeCoordinator(int id)
@@ -37,20 +47,13 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult Validate(Errand errand)
         {
-            if (ModelState.IsValid)
-            {
-
-                return View(errand);
-            }
-            else
-            {
-                return View();
-            }
-
+            HttpContext.Session.SetJson("NewErrand", errand);
+            return View(errand);
         }
 
         public ViewResult Thanks()
         {
+            HttpContext.Session.Remove("NewErrand");
             return View();
         }
     }

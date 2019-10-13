@@ -22,32 +22,31 @@
                 <input type="hidden" name="isSubmitted" value="true" />
             </p>
             <p>
-                <span class="label">Var har brottet skett någonstans?</span><br />
-
+                <label asp-for="Place" class="label">Var har brottet skett någonstans?</label><br />
                 <input asp-for="Place" /> *
             </p>
             <p>
-                <span class="label">Vilken typ av brott?</span><br />
+                <label asp-for="TypeOfCrime" class="label">Vilken typ av brott?</label><br />
                 <input asp-for="TypeOfCrime" /> *
             </p>
             <p>
-                <span class="label">När skedde brottet?</span><br />
+                <label asp-for="DateOfObservation" class="label">När skedde brottet?</label><br />
                 <input asp-for="DateOfObservation" asp-format="{0:yyyy/MM/dd}" /> *
             </p>
             <p>
-                <span class="label">Ditt namn (för- och efternamn):</span><br />
+                <label asp-for="InformerName" class="label">Ditt namn (för- och efternamn):</label><br />
                 <input asp-for="InformerName" /> *
             </p>
             <p>
-                <span class="label">Din telefon:</span><br />
+                <label asp-for="InformerPhone" class="label">Din telefon:</label><br />
                 <input asp-for="InformerPhone" /> *
             </p>
             <p>
-                <span class="label">Beskriv din observation<br /> (ex. namn på misstänkt person):</span><br />
+                <label asp-for="Observation" class="label">Beskriv din observation<br /> (ex. namn på misstänkt person):</label><br />
                 <textarea asp-for="Observation" rows="5" cols="16"></textarea>
             </p>
             <p>
-                <input class="button" type="submit" value="Skicka in" />
+                <button class="button" type="submit">Skicka in</button>
             </p>
         </form>
     </section><!-- End Left -->

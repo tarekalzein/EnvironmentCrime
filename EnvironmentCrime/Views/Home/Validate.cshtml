@@ -1,7 +1,5 @@
-﻿
-@{
-    @model Errand
-}
+﻿@model Errand
+
 
 <section id="mainColumn">
     <h2>Din anmälan av miljöbrott</h2>
@@ -15,5 +13,8 @@
     <p><span class="label">Ditt namn (för- och efternamn):</span><br />@Model.InformerName</p>
     <p><span class="label">Din telefon:</span><br />@Model.InformerPhone</p>
     <p><span class="label">Mer information:</span><br />@Model.Observation </p>
-    <p><a button class="button" asp-controller="Home" asp-action="Index">Tillbaka</a> <a button class="button" asp-controller="Home" asp-action="Thanks">Bekräfta</a></p>
+    <p>
+    <a button class="button" asp-controller="Home" asp-action="Index">Tillbaka</a>
+    <a button class="button" asp-controller="Home" asp-action="Thanks">Bekräfta</a>
+    </p>
 </section><!-- End Left -->

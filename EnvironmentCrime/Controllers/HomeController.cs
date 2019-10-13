@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using EnvironmentCrime.Models;
+using EnvironmentCrime.Infrastructure;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,7 +11,17 @@ namespace EnvironmentCrime.Controllers
         // GET: /<controller>/
         public ViewResult Index()
         {
-            return View();
+            var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
+
+            if (errand == null)
+            {
+                return View();
+
+            }
+            else
+            {
+                return View(errand);
+            }
         }
 
         public ViewResult Services()
@@ -39,20 +46,14 @@ namespace EnvironmentCrime.Controllers
         [HttpPost]
         public ViewResult Validate(Errand errand)
         {
-            if (ModelState.IsValid)
-            {
-        
-                return View(errand);
-            }
-            else
-            {
-                return View();
-            }
+            HttpContext.Session.SetJson("NewErrand", errand);
+            return View(errand);
             
         }
 
         public ViewResult Thanks()
         {
+            HttpContext.Session.Remove("NewErrand");
             return View();
         }
 
