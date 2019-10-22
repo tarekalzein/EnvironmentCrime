@@ -1,5 +1,5 @@
 ﻿@{
-    @model IEnumerable<Errand>
+    @model IErrandRepository
     Layout = "_CoordinatorLoginLayout";
 }
 
@@ -19,9 +19,9 @@
 
             <select name="status">
                 <option selected="selected">Välj alla</option>
-                @foreach (var item in Model.Select(s=> s.StatusId).Distinct().ToArray())
+                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
                 {
-                    <option>@item</option>
+                    <option>@errandStatus.StatusName</option>
                 }
                 <!--
     <option value="stat0">Inrapporterad</option>
@@ -34,17 +34,11 @@
         <td>
             <select name="department">
                 <option selected="selected">Välj alla</option>
-                @foreach (var item in Model.Select(s => s.DepartmentId).Distinct().ToArray())
+                @foreach (Department department in Model.Departments)
                 {
-                    <option>@item</option>
+                    <option>@department.DepartmentName</option>
                 }
-                <!--
-    <option value="teknik">Tekniska avloppshanteringen</option>
-    <option value="klimat">Klimat och energi</option>
-    <option value="miljo">Miljö och Hälsoskydd</option>
-    <option value="natur">Natur och Skogsvård</option>
-    <option value="avfall">Renhållning och Avfall</option>
-        -->
+                
             </select>
         </td>
         <td><input class="button" type="submit" value="Hämta lista" /></td>
@@ -65,7 +59,7 @@
         <th>Avdelning</th>
         <th>Handläggare</th>
     </tr>
-    @foreach (Errand errand in Model)
+    @foreach (Errand errand in Model.Errands)
     {
 <tr>
     <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>

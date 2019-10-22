@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Models
 {
-    public class FakeErrandRepository :IErrandRepository
+    public class FakeErrandRepository //:IErrandRepository
     {
         public IQueryable<Errand> Errands => new List<Errand> {
             new Errand{ ErrandId = 2018450001, Place = "Skogslunden vid Jensens gård", TypeOfCrime="Sopor", DateOfObservation = new DateTime(2018,04,24), Observation ="Anmälaren var på promeand i skogslunden när hon upptäckte soporna", InvestigatorInfo = "Undersökning har gjorts och bland soporna hittades bl.a ett brev till Gösta Olsson", InvestigatorAction = "Brev har skickats till Gösta Olsson om soporna och anmälan har gjorts till polisen 2018-05-01", InformerName = "Ada Bengtsson", InformerPhone = "0432-5545522", StatusId="Klar", DepartmentId="Renhållning och avfall", EmployeeId ="Susanne Fred"},

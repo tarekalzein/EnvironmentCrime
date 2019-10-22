@@ -15,6 +15,9 @@ namespace EnvironmentCrime.Models
         }
 
         public IQueryable<Errand> Errands => context.Errands;
+        public IQueryable<Department> Departments => context.Departments;
+        public IQueryable<ErrandStatus> ErrandStatuses => context.ErrandStatuses;
+        public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Sequence> Sequences => context.Sequences;
         public Task<Errand> GetErrandDetail(int id)
         {

@@ -20,7 +20,7 @@ namespace EnvironmentCrime.Controllers
         // GET: /<controller>/
         public ViewResult StartInvestigator()
         {
-            return View(repository.Errands);
+            return View(repository);
         }
 
         public ViewResult CrimeInvestigator(int id)

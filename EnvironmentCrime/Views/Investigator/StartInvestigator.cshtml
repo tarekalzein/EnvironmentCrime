@@ -1,6 +1,6 @@
 ﻿
 @{
-    @model IEnumerable<Errand>
+    @model IErrandRepository
     Layout = "_LoginLayout";
 }
 
@@ -24,9 +24,9 @@
         <td>
             <select name="status">
                 <option selected="selected">Välj alla</option>
-                @foreach (var item in Model.Select(s => s.StatusId).Distinct().ToArray())
+                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
                 {
-                    <option>@item</option>
+                    <option>@errandStatus.StatusId</option>
                 }
 
             </select>
@@ -48,7 +48,7 @@
         <th>Handläggare</th>
     </tr>
 
-    @foreach (Errand errand in Model)
+    @foreach (Errand errand in Model.Errands)
     {
         <tr>
             <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>

@@ -9,6 +9,9 @@ namespace EnvironmentCrime.Models
     public interface IErrandRepository
     {
         IQueryable<Errand> Errands { get; }
+        IQueryable<Department> Departments { get; }
+        IQueryable<Employee> Employees { get; }
+        IQueryable<ErrandStatus> ErrandStatuses { get; }
         Task<Errand> GetErrandDetail(int id);
 
         string SaveErrand(Errand errand);
