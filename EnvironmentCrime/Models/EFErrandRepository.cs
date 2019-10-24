@@ -15,7 +15,9 @@ namespace EnvironmentCrime.Models
         }
 
         public IQueryable<Errand> Errands => context.Errands;
-        public IQueryable<Department> Departments => context.Departments;
+
+        //.Where(x => x.DepartmentId!="D00") is added to exclude the Småstads Kommun from List
+        public IQueryable<Department> Departments => context.Departments.Where(x => x.DepartmentId!="D00");
         public IQueryable<ErrandStatus> ErrandStatuses => context.ErrandStatuses;
         public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Sequence> Sequences => context.Sequences;
@@ -49,6 +51,17 @@ namespace EnvironmentCrime.Models
             Sequence dbEntry = context.Sequences.FirstOrDefault(sq => sq.Id == 1);
             dbEntry.CurrentValue += 1;
             context.SaveChanges();
+        }
+
+        public int UpdateErrand(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if(dbEntry!=null)
+            {
+                dbEntry.DepartmentId = errand.DepartmentId;
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
         }
         
 

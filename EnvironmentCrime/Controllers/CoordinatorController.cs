@@ -37,6 +37,8 @@ namespace EnvironmentCrime.Controllers
         public ViewResult CrimeCoordinator(int id)
         {
             ViewBag.ID = id;
+            TempData["id"] = id;
+            ViewBag.ListOfDepartments = repository.Departments;
             return View();
         }
 
@@ -65,5 +67,19 @@ namespace EnvironmentCrime.Controllers
                 return View(errand);
             }
         }
+        [HttpPost]
+        public IActionResult SaveDepartment(Errand errand)
+        {
+             
+            errand.ErrandId = int.Parse(TempData["id"].ToString());
+            if (errand.DepartmentId != "Välj alla")
+            {
+                repository.UpdateErrand(errand);
+                ViewBag.ConfirmMsg = "Changes Saved Successfully";
+            }
+            
+            return RedirectToAction("CrimeCoordinator", new {id= errand.ErrandId });
+            }
+           
     }
 }

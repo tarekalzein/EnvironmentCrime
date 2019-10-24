@@ -1,33 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
-
+    @model Errand
     Layout = "_CoordinatorLoginLayout";
 }
 
 <h2>Detaljer för ärendet</h2>
 <p class="info">Du är inloggad som samordnare</p>
+<form asp-controller="Coordinator" asp-action="SaveDepartment">
+    <!--ComponentView-->
+    @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+    <!--End of ComponentView-->
 
-<!--ComponentView-->
-@await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
-<!--End of ComponentView-->
 
-<section id="bottomColumn">
-    <h3>Redigera ärende</h3>
-    <p>
-        Ange enhet:
-        <select name="department">
-            <option selected="selected">Välj</option>
-            <option value="unit0">Småstads Kommun</option>
-            <option value="unit1">Tekniska Avloppshantering</option>
-            <option value="unit2">Klimat och Energi</option>
-            <option value="unit3">Miljö och Hälsoskydd</option>
-            <option value="unit4">Natur och Skogsvård</option>
-            <option value="unit5">Renhållning och Avfall</option>
-        </select>
-    </p>
-    <p><input class="button" type="submit" value="Spara" /></p>
-</section>
+
+    <section id="bottomColumn">
+        <h3>Redigera ärende</h3>
+        <p>
+            Ange enhet:
+
+            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId","DepartmentName"))">
+                <option selected="selected">Välj alla</option>
+            </select>
+        </p>
+        <p><input class="button" type="submit" value="Spara" /></p>
+
+    </section>
+</form>
+
 
 

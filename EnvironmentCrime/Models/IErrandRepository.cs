@@ -19,5 +19,7 @@ namespace EnvironmentCrime.Models
         int GetSequence();
 
         void UpdateSequence();
+
+        int UpdateErrand(Errand errand);
     }
 }
