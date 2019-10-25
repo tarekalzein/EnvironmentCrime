@@ -6,7 +6,7 @@
 
 <h2>Detaljer för ärendet</h2>
 <p class="info">Du är inloggad som samordnare</p>
-<form asp-controller="Coordinator" asp-action="SaveDepartment">
+<form asp-controller="Coordinator" asp-action="Save">
     <!--ComponentView-->
     @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
     <!--End of ComponentView-->

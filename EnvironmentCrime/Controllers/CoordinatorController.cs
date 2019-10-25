@@ -68,14 +68,13 @@ namespace EnvironmentCrime.Controllers
             }
         }
         [HttpPost]
-        public IActionResult SaveDepartment(Errand errand)
+        public IActionResult Save(Errand errand)
         {
              
             errand.ErrandId = int.Parse(TempData["id"].ToString());
             if (errand.DepartmentId != "Välj alla")
             {
-                repository.UpdateErrand(errand);
-                ViewBag.ConfirmMsg = "Changes Saved Successfully";
+                repository.UpdateDepartment(errand);
             }
             
             return RedirectToAction("CrimeCoordinator", new {id= errand.ErrandId });

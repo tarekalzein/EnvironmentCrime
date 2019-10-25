@@ -20,6 +20,10 @@ namespace EnvironmentCrime.Models
 
         void UpdateSequence();
 
-        int UpdateErrand(Errand errand);
+        int UpdateDepartment(Errand errand);
+
+        int UpdateEmployee(Errand errand);
+
+        int UpdateAction(Errand errnad);
     }
 }

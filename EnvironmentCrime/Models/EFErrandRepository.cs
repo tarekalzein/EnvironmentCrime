@@ -51,7 +51,7 @@ namespace EnvironmentCrime.Models
             context.SaveChanges();
         }
 
-        public int UpdateErrand(Errand errand)
+        public int UpdateDepartment(Errand errand)
         {
             Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
             if(dbEntry!=null)
@@ -61,7 +61,30 @@ namespace EnvironmentCrime.Models
             context.SaveChanges();
             return errand.ErrandId;
         }
-        
+        public int UpdateAction(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if (dbEntry != null)
+            {
+                dbEntry.StatusId="S_B";
+                dbEntry.InvestigatorInfo = errand.InvestigatorInfo;
+                dbEntry.EmployeeId = null;
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
+        }
+
+        public int UpdateEmployee(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if (dbEntry != null)
+            {
+                dbEntry.EmployeeId = errand.EmployeeId;
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
+        }
+
 
 
 

@@ -30,5 +30,31 @@ namespace EnvironmentCrime.Controllers
             ViewBag.ListOfEmployees = repository.Employees;
             return View();
         }
+
+        public IActionResult Save(Errand errand)
+        {
+            errand.ErrandId = int.Parse(TempData["id"].ToString());
+            if (errand.StatusId.ToString() == "true")
+            {
+                repository.UpdateAction(errand);
+            }
+            if (errand.EmployeeId != "Välj" && errand.StatusId.ToString() != "true")
+            {
+                repository.UpdateEmployee(errand);
+            }
+            return RedirectToAction("CrimeManager", new { id = errand.ErrandId });    
+        }
+
+        //public ViewResult Save(Errand errand)
+        //{
+        //    errand.ErrandId = int.Parse(TempData["id"].ToString());
+        //    //for test purpose:
+        //    ViewBag.TestEmployeeID = errand.EmployeeId;
+        //    ViewBag.TestID = errand.ErrandId;
+        //    ViewBag.TestStatus = errand.StatusId.ToString();
+        //    ViewBag.TestDetails = errand.InvestigatorInfo;//end of test
+
+        //    return View();
+        //}
     }
 }
