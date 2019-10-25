@@ -1,7 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
+    @model Errand
     Layout = "_LoginLayout";
 
 }
@@ -22,18 +21,36 @@
 
 
 <section id="bottomColumn">
+
     <h3>Redigera ärende</h3>
     <p>
         Ange handläggare:
-        <select name="investigator">
+        <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">
             <option selected="selected">Välj</option>
-            <option value="inv1">Ada Bengtsson</option>
-            <option value="inv2">Bengt Cederström</option>
-            <option value="inv3">Cecilia Danielsson</option>
-            <option value="inv4">David Ekström</option>
-            <option value="inv5">Erik Falkenberg</option>
+
         </select>
     </p>
-    <p><input type="checkbox" name="noAction" value="true" /> Ingen åtgärd: <input type="text" name="reason" value="Ange motivering" /></p>
-    <p><input class="button" type="submit" value="Spara" /></p>
+    <label asp-for="StatusId">
+        <p><input type="checkbox" onclick="myFunction()" id="myCheck" asp-for="StatusId" /> Ingen åtgärd:
+
+
+    </label><input id="ActionDetail" type="text" name="reason" value="Ange motivering" /></p>
+    <p>
+        <input class="button" type="submit" value="Spara" />
+    </p>
+
+
+    <!--This script is to disable the textbox by default and enable it if  checkbox is checked, which I think is Cool!-->
+    <script>
+        function myFunction() {
+            var checkbox = document.getElementById("myCheck");
+            var ActionDetail = document.getElementById("ActionDetail");
+            if (checkbox.checked == true) {
+                ActionDetail.disabled = false;
+            }
+            else {
+                ActionDetail.disabled = true;
+            }
+        }
+    </script>
 </section>

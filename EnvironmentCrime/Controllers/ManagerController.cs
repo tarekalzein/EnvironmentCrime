@@ -26,6 +26,8 @@ namespace EnvironmentCrime.Controllers
         public ViewResult CrimeManager(int id)
         {
             ViewBag.ID = id;
+            TempData["id"] = id;
+            ViewBag.ListOfEmployees = repository.Employees;
             return View();
         }
     }
