@@ -1,5 +1,5 @@
 ﻿@{
-    @model IEnumerable<Errand>
+    @model Errand
     Layout = "_LoginLayout";
 }
 
@@ -10,37 +10,36 @@
     </ul>}
 <h2>Detaljer för ärendet</h2>
 <p class="info">Du är inloggad som handläggare</p>
+<form asp-controller="Investigator" asp-action="Save">
 
-<!--ComponentView-->
-@await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
-<!--End of ComponentView-->
+    <!--ComponentView-->
+    @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+    <!--End of ComponentView-->
 
 
 
-<section id="bottomColumn">
-    <h3>Redigera ärende</h3>
-    <p class="label">Händelser:</p>
-    <textarea name="events" rows="5" cols="60"></textarea>
+    <section id="bottomColumn">
+        <h3>Redigera ärende</h3>
+        <p class="label">Händelser:</p> <!--InvestigatorAction-->
+        <textarea asp-for="InvestigatorAction" rows="5" cols="60"></textarea>
 
-    <p class="label">Mer information:</p>
-    <textarea name="information" rows="5" cols="60"></textarea>
+        <p class="label">Mer information:</p><!--InvestigatorInformation-->
+        <textarea asp-for="InvestigatorInfo" rows="5" cols="60"></textarea>
 
-    <p class="label">Prover:</p>
-    <input type="file" name="loadSample" />
+        <p class="label">Prover:</p>
+        <input type="file" name="loadSample" />
 
-    <p class="label">Ladda upp bilder:</p>
-    <input type="file" name="loadImage" />
+        <p class="label">Ladda upp bilder:</p>
+        <input type="file" name="loadImage" />
 
-    <p class="label">Ändring av status:</p>
-    <select name="status">
-        <option selected="selected">Välj</option>
-        <option value="stat1">Inrapporterad</option>
-        <option value="stat2">Ingen Åtgärd</option>
-        <option value="stat3">Påbörjad</option>
-        <option value="stat4">Klar</option>
-    </select>
+        <p class="label">Ändring av status:</p>
+        <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
+            <option selected="selected">Välj</option>
 
-    <p>
-        <input class="button" type="submit" value="Spara ändringarna" />
-    </p>
-</section>
+        </select>
+
+        <p>
+            <input class="button" type="submit" value="Spara ändringarna" />
+        </p>
+    </section>
+</form>

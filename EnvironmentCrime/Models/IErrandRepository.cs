@@ -25,5 +25,11 @@ namespace EnvironmentCrime.Models
         int UpdateEmployee(Errand errand);
 
         int UpdateAction(Errand errnad);
+
+        int UpdateInvestigatorAction(Errand errand);
+
+        int UpdateInvestigatorInfo(Errand errand);
+
+        int UpdateStatusId(Errand errand);
     }
 }

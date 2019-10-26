@@ -53,7 +53,7 @@ namespace EnvironmentCrime.Models
 
         public int UpdateDepartment(Errand errand)
         {
-            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId); //This Can be put in a different method which is called by each update method.
             if(dbEntry!=null)
             {
                 dbEntry.DepartmentId = errand.DepartmentId;
@@ -85,8 +85,50 @@ namespace EnvironmentCrime.Models
             return errand.ErrandId;
         }
 
+        public int UpdateInvestigatorAction(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if (dbEntry != null)
+            {
+                if (dbEntry.InvestigatorAction == null)
+                {
+                    dbEntry.InvestigatorAction = errand.InvestigatorAction;
+                }
+                else
+                {
+                    dbEntry.InvestigatorAction += "\n" + errand.InvestigatorAction;
+                }
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
+        }
 
+        public int UpdateInvestigatorInfo(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if (dbEntry != null)
+            {
+                if (dbEntry.InvestigatorInfo == null) 
+                {
+                    dbEntry.InvestigatorInfo = errand.InvestigatorInfo;
+                }else
+                {
+                    dbEntry.InvestigatorInfo += "\n" + errand.InvestigatorInfo;
+                }
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
+        }
 
-
+        public int UpdateStatusId(Errand errand)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
+            if (dbEntry != null)
+            {
+                dbEntry.StatusId = errand.StatusId;
+            }
+            context.SaveChanges();
+            return errand.ErrandId;
+        }
     }
 }
