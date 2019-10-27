@@ -14,5 +14,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\uploads\samples\" />
+    <Folder Include="wwwroot\uploads\images\" />
   </ItemGroup>
 </Project>
