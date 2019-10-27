@@ -45,6 +45,9 @@ namespace EnvironmentCrime.Models
 
         public string EmployeeId { get; set; }
 
+        public ICollection<Sample> Samples { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
 
 
     }

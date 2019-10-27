@@ -14,6 +14,10 @@ namespace EnvironmentCrime.Models
         IQueryable<ErrandStatus> ErrandStatuses { get; }
         Task<Errand> GetErrandDetail(int id);
 
+        IQueryable<Sample> Samples { get; }
+
+        IQueryable<Picture> Pictures { get; }
+
         string SaveErrand(Errand errand);
 
         int GetSequence();
@@ -31,5 +35,8 @@ namespace EnvironmentCrime.Models
         int UpdateInvestigatorInfo(Errand errand);
 
         int UpdateStatusId(Errand errand);
+
+        void AddPicture(Picture picture);
+        void AddSample(Sample sample);
     }
 }

@@ -19,6 +19,11 @@ namespace EnvironmentCrime.Models
         public IQueryable<ErrandStatus> ErrandStatuses => context.ErrandStatuses;
         public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Sequence> Sequences => context.Sequences;
+
+        public IQueryable<Sample> Samples => throw new System.NotImplementedException();
+
+        public IQueryable<Picture> Pictures => throw new System.NotImplementedException();
+
         public Task<Errand> GetErrandDetail(int id)
         {
             return Task.Run(() =>
@@ -129,6 +134,24 @@ namespace EnvironmentCrime.Models
             }
             context.SaveChanges();
             return errand.ErrandId;
+        }
+
+        public void AddPicture(Picture picture)
+        {
+            if (picture.PictureId == 0)
+            {
+                context.Pictures.Add(picture);
+            }
+            context.SaveChanges();
+        }
+
+        public void AddSample(Sample sample)
+        {
+            if (sample.SampleId == 0)
+            {
+                context.Samples.Add(sample);
+            }
+            context.SaveChanges();
         }
     }
 }

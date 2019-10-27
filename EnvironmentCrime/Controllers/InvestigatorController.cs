@@ -38,25 +38,14 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-        //TEST ACTION METHOD
-        //public ViewResult Save(Errand errand)
-        //{
-        //    errand.ErrandId = int.Parse(TempData["Id"].ToString());
-
-        //    ViewBag.TestErrandId = errand.ErrandId;
-        //    ViewBag.TestInvestigatorAction = errand.InvestigatorAction;
-        //    ViewBag.TestInvestigatorInfo = errand.InvestigatorInfo;
-        //    ViewBag.TestStatusId = errand.StatusId;
-
-        //    return View();
-        //}
+        
         [HttpPost]
         public async Task<IActionResult> Save(Errand errand, IFormFile document, IFormFile image)
         {
             errand.ErrandId = int.Parse(TempData["Id"].ToString());
             var tempPath = Path.GetTempFileName();
 
-            string dateTime = DateTime.Now.ToString("yymmddhhss");
+            string dateTime = DateTime.Now.ToString("yyMMddHHmmss");
 
             if (errand.InvestigatorAction != null)
             {
@@ -90,14 +79,19 @@ namespace EnvironmentCrime.Controllers
                     //Naming file with special format : this is to assure no duplicates
                     var path = Path.Combine(environment.WebRootPath, "uploads/samples", errand.ErrandId + "-doc-" + dateTime + "." + fileExt);
                     System.IO.File.Move(tempPath, path);
+                Sample sample = new Sample();
+                sample.SampleName = path;
+                sample.ErrandId = errand.ErrandId;
+                repository.AddSample(sample);
             }
 
             //handle image(s) upload
-            if (image.Length > 0)
-            {
+            if (image != null) { 
+                if (image.Length > 0)
+                {
                 using (var stream = new FileStream(tempPath, FileMode.Create))
                 {
-                    await document.CopyToAsync(stream);
+                    await image.CopyToAsync(stream);
                 }
                 //get file extension....then rename file name as caseNo. check if path exists => rename path without extension +(i) and add extension
                 int index = image.FileName.LastIndexOf('.');
@@ -106,8 +100,13 @@ namespace EnvironmentCrime.Controllers
                 //Naming file with special format : this is to assure no duplicates
                 var path = Path.Combine(environment.WebRootPath, "uploads/images", errand.ErrandId + "-img-" + dateTime + "." + fileExt);
                 System.IO.File.Move(tempPath, path);
+
+                Picture picture = new Picture();
+                picture.PictureName = path;
+                picture.ErrandId = errand.ErrandId;
+                repository.AddPicture(picture);
+                }
             }
-            
             return RedirectToAction("CrimeInvestigator", new { id = errand.ErrandId });            
         }
     }
