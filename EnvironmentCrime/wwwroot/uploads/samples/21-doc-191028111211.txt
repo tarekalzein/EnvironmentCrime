@@ -1,0 +1,12 @@
+<script>
+        function myFunction() {
+            var checkbox = document.getElementById("myCheck");
+            var ActionDetail = document.getElementById("ActionDetail");
+            if (checkbox.checked == true) {
+                ActionDetail.disabled = false;
+            }
+            else {
+                ActionDetail.disabled = true;
+            }
+        }
+    </script>

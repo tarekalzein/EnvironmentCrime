@@ -49,6 +49,9 @@
             <span class="label">Provtagning: </span><br />
             <!--Provtagning.pdf-->
             @{ int counter = 1;
+                if (Model.Samples.Count() == 0)
+                { <span>Inga filer finns</span>}
+
                 foreach (Sample sample in Model.Samples)
                 {
                     <a href="~/uploads/samples/@sample.SampleName" target="_blank">[@counter]</a><span> </span>
@@ -67,9 +70,13 @@
         </p>
             <p>
                 <span class="label">Bilder: </span><br />
+                @{ if (Model.Pictures.Count() == 0)
+                    {<span>Inga bilder finns</span>}
+                    }
+
                 @foreach (Picture picture in Model.Pictures)
                 {
                     <a href="~/uploads/images/@picture.PictureName" target="_blank"><img src="~/uploads/images/@picture.PictureName" alt="@picture.PictureName" width="50" height="50" /></a>
-                    }
+                }
             </p>
     </section>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using EnvironmentCrime.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace EnvironmentCrime
@@ -23,7 +24,8 @@ namespace EnvironmentCrime
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<IdentityDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddSession();
             services.AddTransient<IErrandRepository, EFErrandRepository>();
             services.AddMvc();
