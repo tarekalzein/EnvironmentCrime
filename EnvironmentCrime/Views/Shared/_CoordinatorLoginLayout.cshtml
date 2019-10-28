@@ -5,9 +5,14 @@
 
     <nav>
         <ul>
-            <li><a class="reports" onclick="location.href='@Url.Action("StartCoordinator", "Coordinator")'">Start(Ärenden)</a></li>
-            <li><a class="reportAdd" onclick="location.href='@Url.Action("ReportCrime", "Coordinator")'">Rapportera brott</a></li>
-            <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
+            <!--
+    <li><a class="reports" onclick="location.href='@Url.Action("StartCoordinator", "Coordinator")'">Start(Ärenden)</a></li>
+    <li><a class="reportAdd" onclick="location.href='@Url.Action("ReportCrime", "Coordinator")'">Rapportera brott</a></li>
+    <li class="right"><a class="logout" onclick="location.href='@Url.Action("Index", "Home")'">Logga ut</a></li>
+        -->
+            <li><a class="reports" asp-controller="Coordinator" asp-action="StartCoordinator">Start(Ärenden)</a></li>
+            <li><a class="reportAdd" asp-controller="Coordinator" asp-action="ReportCrime">Rapportera brott</a></li>
+            <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
 
         </ul>
 
