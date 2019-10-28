@@ -18,7 +18,7 @@
         <p>
             Ange enhet:
 
-            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId","StatusName"))">
+            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId","DepartmentName"))">
                 <option selected="selected">Välj alla</option>
             </select>
         </p>

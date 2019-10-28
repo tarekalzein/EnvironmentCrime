@@ -47,7 +47,15 @@
         </p>
         <p>
             <span class="label">Provtagning: </span><br />
-            Provtagning.pdf
+            <!--Provtagning.pdf-->
+            @{ int counter = 1;
+                foreach (Sample sample in Model.Samples)
+                {
+                    <a href="~/uploads/samples/@sample.SampleName" target="_blank">[@counter]</a><span> </span>
+                    counter++;
+                }
+
+            }
         </p>
         <p>
             <span class="label">Ytterligare information: </span><br />
@@ -57,8 +65,11 @@
             <span class="label">Händelser: </span><br />
             <p>@Model.InvestigatorAction</p>
         </p>
-        <p>
-            <span class="label">Bilder: </span><br />
-            <a href="~/images/imagetest.jpg"><img src="~/images/imagetest.jpg" alt="klicka på bilden" /></a>
-        </p>
+            <p>
+                <span class="label">Bilder: </span><br />
+                @foreach (Picture picture in Model.Pictures)
+                {
+                    <a href="~/uploads/images/@picture.PictureName" target="_blank"><img src="~/uploads/images/@picture.PictureName" alt="@picture.PictureName" width="50" height="50" /></a>
+                    }
+            </p>
     </section>

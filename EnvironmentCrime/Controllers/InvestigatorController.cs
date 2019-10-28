@@ -8,7 +8,6 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnvironmentCrime.Controllers
 {
@@ -75,12 +74,13 @@ namespace EnvironmentCrime.Controllers
                     //get file extension....then rename file name as caseNo. check if path exists => rename path without extension +(i) and add extension
                     int index = document.FileName.LastIndexOf('.');
                     string fileExt = document.FileName.Substring(index + 1);
+                string docFileName = (errand.ErrandId + "-doc-" + dateTime + "." + fileExt);
 
                     //Naming file with special format : this is to assure no duplicates
-                    var path = Path.Combine(environment.WebRootPath, "uploads/samples", errand.ErrandId + "-doc-" + dateTime + "." + fileExt);
+                    var path = Path.Combine(environment.WebRootPath, "uploads/samples", docFileName);
                     System.IO.File.Move(tempPath, path);
                 Sample sample = new Sample();
-                sample.SampleName = path;
+                sample.SampleName = docFileName;
                 sample.ErrandId = errand.ErrandId;
                 repository.AddSample(sample);
             }
@@ -96,13 +96,14 @@ namespace EnvironmentCrime.Controllers
                 //get file extension....then rename file name as caseNo. check if path exists => rename path without extension +(i) and add extension
                 int index = image.FileName.LastIndexOf('.');
                 string fileExt = image.FileName.Substring(index + 1);
+                string imgFileName= (errand.ErrandId + "-img-" + dateTime + "." + fileExt);
 
                 //Naming file with special format : this is to assure no duplicates
-                var path = Path.Combine(environment.WebRootPath, "uploads/images", errand.ErrandId + "-img-" + dateTime + "." + fileExt);
+                var path = Path.Combine(environment.WebRootPath, "uploads/images", imgFileName);
                 System.IO.File.Move(tempPath, path);
 
                 Picture picture = new Picture();
-                picture.PictureName = path;
+                picture.PictureName = imgFileName;
                 picture.ErrandId = errand.ErrandId;
                 repository.AddPicture(picture);
                 }

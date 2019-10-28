@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Models
@@ -12,7 +13,7 @@ namespace EnvironmentCrime.Models
             context = ctx;
         }
 
-        public IQueryable<Errand> Errands => context.Errands;
+        public IQueryable<Errand> Errands => context.Errands.Include(e=>e.Samples).Include(e=>e.Pictures);
 
         //.Where(x => x.DepartmentId!="D00") is added to exclude the Småstads Kommun from List
         public IQueryable<Department> Departments => context.Departments.Where(x => x.DepartmentId!="D00");
@@ -20,9 +21,9 @@ namespace EnvironmentCrime.Models
         public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Sequence> Sequences => context.Sequences;
 
-        public IQueryable<Sample> Samples => throw new System.NotImplementedException();
+        public IQueryable<Sample> Samples => context.Samples;
 
-        public IQueryable<Picture> Pictures => throw new System.NotImplementedException();
+        public IQueryable<Picture> Pictures => context.Pictures;
 
         public Task<Errand> GetErrandDetail(int id)
         {
