@@ -69,5 +69,12 @@ namespace EnvironmentCrime.Controllers
             await signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
+
+        public ViewResult AccessDenied()
+        {
+            return View();
+        }
+
+       
     }
 }

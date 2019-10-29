@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EnvironmentCrime.Migrations
 {
-    public partial class Initial : Migration
+    public partial class firstBuild : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,6 +71,19 @@ namespace EnvironmentCrime.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sequences",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CurrentValue = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sequences", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pictures",
                 columns: table => new
                 {
@@ -82,6 +95,12 @@ namespace EnvironmentCrime.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.PictureId);
+                    table.ForeignKey(
+                        name: "FK_Pictures_Errands_ErrandId",
+                        column: x => x.ErrandId,
+                        principalTable: "Errands",
+                        principalColumn: "ErrandId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,20 +115,23 @@ namespace EnvironmentCrime.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Samples", x => x.SampleId);
+                    table.ForeignKey(
+                        name: "FK_Samples_Errands_ErrandId",
+                        column: x => x.ErrandId,
+                        principalTable: "Errands",
+                        principalColumn: "ErrandId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Sequences",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CurrentValue = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sequences", x => x.Id);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Pictures_ErrandId",
+                table: "Pictures",
+                column: "ErrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Samples_ErrandId",
+                table: "Samples",
+                column: "ErrandId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -119,9 +141,6 @@ namespace EnvironmentCrime.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Errands");
 
             migrationBuilder.DropTable(
                 name: "ErrandStatuses");
@@ -134,6 +153,9 @@ namespace EnvironmentCrime.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sequences");
+
+            migrationBuilder.DropTable(
+                name: "Errands");
         }
     }
 }

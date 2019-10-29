@@ -2,13 +2,17 @@
 using EnvironmentCrime.Models;
 using Microsoft.AspNetCore.Http;
 using EnvironmentCrime.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnvironmentCrime.Controllers
 {
+    [Authorize(Roles = "Coordinator")]
+
     public class CoordinatorController : Controller
     {
+
         private IErrandRepository repository;
 
         public CoordinatorController(IErrandRepository repo)
@@ -17,6 +21,7 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
+
         public ViewResult StartCoordinator()
         {
             return View(repository);

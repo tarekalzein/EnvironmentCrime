@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EnvironmentCrime.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnvironmentCrime.Controllers
 {
+    [Authorize(Roles ="Manager")]
     public class ManagerController : Controller
     {
         private IErrandRepository repository;
@@ -18,11 +20,13 @@ namespace EnvironmentCrime.Controllers
             repository = repo;
         }
         // GET: /<controller>/
+        [Authorize(Roles = "Manager")]
         public ViewResult StartManager()
         {
             return View(repository);
         }
 
+        [Authorize(Roles = "Manager")]
         public ViewResult CrimeManager(int id)
         {
             ViewBag.ID = id;
@@ -45,16 +49,5 @@ namespace EnvironmentCrime.Controllers
             return RedirectToAction("CrimeManager", new { id = errand.ErrandId });    
         }
 
-        //public ViewResult Save(Errand errand)
-        //{
-        //    errand.ErrandId = int.Parse(TempData["id"].ToString());
-        //    //for test purpose:
-        //    ViewBag.TestEmployeeID = errand.EmployeeId;
-        //    ViewBag.TestID = errand.ErrandId;
-        //    ViewBag.TestStatus = errand.StatusId.ToString();
-        //    ViewBag.TestDetails = errand.InvestigatorInfo;//end of test
-
-        //    return View();
-        //}
     }
 }

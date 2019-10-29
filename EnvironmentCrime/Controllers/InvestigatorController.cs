@@ -7,10 +7,11 @@ using EnvironmentCrime.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace EnvironmentCrime.Controllers
 {
+    [Authorize(Roles = "Investigator")]
     public class InvestigatorController : Controller
     {
         private IHostingEnvironment environment;
@@ -22,13 +23,16 @@ namespace EnvironmentCrime.Controllers
             environment = env;
             repository = repo;
         }
-        
+
         // GET: /<controller>/
+        [Authorize(Roles = "Investigator")]
+
         public ViewResult StartInvestigator()
         {
             return View(repository);
         }
 
+        [Authorize(Roles = "Investigator")]
         public ViewResult CrimeInvestigator(int id)
         {
             ViewBag.ID = id;

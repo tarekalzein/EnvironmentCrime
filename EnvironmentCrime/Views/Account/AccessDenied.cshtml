@@ -6,32 +6,8 @@
     <h2>Inloggning för Småstads personal</h2>
     <p class="info">En säker tjänst från Småstads IT-avdelning</p>
 
-
-    @*
-    <form asp-controller="Coordinator" asp-action="StartCoordinator" method="post" >
-        <p>
-            <input type="hidden" name="isSubmitted" value="true" />
-        </p>
-        <p>
-            <span class="label">Användarnamn:</span><br />
-            <input type="text" name="user" />
-        </p>
-        <p>
-            <span class="label">Lösenord:</span><br />
-            <input type="password" name="password" />
-        </p>
-        <p>
-            <input class="button" type="submit" value="Inloggning av samordnare" />
-            <br />
-            <!--Dessa länkar ska sedan tas bort då det är meningen att vid kontrollen av inloggningsuppgifter så hämtas rätt sida-->
-            
-            <a button class="button" asp-controller="Manager" asp-action="StartManager">Inloggning av chefer</a><br />
-            <a class="button" asp-controller="Investigator" asp-action="StartInvestigator">Inloggning av handläggare</a>
-
-        </p>
-    </form>
-        *@
-
+    <p style="font-weight=bold;
+            color: #f00;">Ni har ingen åtkomst till denna sida, logga in med rätt användarnamn för att se den här sidan</p>
 <form asp-controller="Account" asp-action="Login" method="post">
 
     <!--The 2 following lines are just fake inputs because chrome was considering the username field as password and suggests random password!....Not needed in our course, but it is very very annoying!
@@ -63,5 +39,4 @@
 
 </form>
 
-<p>@ViewBag.AccessDenied</p>
 </section><!-- End Left -->

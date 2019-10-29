@@ -45,8 +45,8 @@ namespace EnvironmentCrime
                 app.UseDeveloperExceptionPage();
             }
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
             app.UseStatusCodePages();
             app.UseStaticFiles();
         }

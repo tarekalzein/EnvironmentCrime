@@ -110,6 +110,8 @@ namespace EnvironmentCrime.Migrations
 
                     b.HasKey("PictureId");
 
+                    b.HasIndex("ErrandId");
+
                     b.ToTable("Pictures");
                 });
 
@@ -125,6 +127,8 @@ namespace EnvironmentCrime.Migrations
 
                     b.HasKey("SampleId");
 
+                    b.HasIndex("ErrandId");
+
                     b.ToTable("Samples");
                 });
 
@@ -139,6 +143,22 @@ namespace EnvironmentCrime.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sequences");
+                });
+
+            modelBuilder.Entity("EnvironmentCrime.Models.Picture", b =>
+                {
+                    b.HasOne("EnvironmentCrime.Models.Errand")
+                        .WithMany("Pictures")
+                        .HasForeignKey("ErrandId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EnvironmentCrime.Models.Sample", b =>
+                {
+                    b.HasOne("EnvironmentCrime.Models.Errand")
+                        .WithMany("Samples")
+                        .HasForeignKey("ErrandId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
