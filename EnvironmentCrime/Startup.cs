@@ -24,10 +24,16 @@ namespace EnvironmentCrime
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<IdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+
             services.AddSession();
+
             services.AddTransient<IErrandRepository, EFErrandRepository>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>();
+
             services.AddMvc();
         }
 
@@ -40,6 +46,7 @@ namespace EnvironmentCrime
             }
             app.UseSession();
             app.UseMvcWithDefaultRoute();
+            app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseStaticFiles();
         }

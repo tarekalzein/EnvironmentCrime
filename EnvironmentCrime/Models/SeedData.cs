@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EnvironmentCrime.Models
 {
     public class SeedData
     {
-        public static void CheckDbPopulated(ApplicationDbContext context)
+        public static void CheckDbPopulated(IServiceProvider services)
         {
+            var context = services.GetRequiredService<ApplicationDbContext>();
+
             if (!context.Departments.Any())
             {
                 context.Departments.AddRange(

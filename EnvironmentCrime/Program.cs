@@ -18,21 +18,26 @@ namespace EnvironmentCrime
         {
             var host = CreateWebHostBuilder(args).Build();
 
+            InitializeDatabase(host);
+            host.Run();
+        }
+
+        private static void InitializeDatabase(IWebHost host)
+        {
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    SeedData.CheckDbPopulated(context);
+                    SeedData.CheckDbPopulated(services);
+                    SeedIdentity.CheckDbPopulated(services).Wait();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(e, "An error has occured while seeding the database.");
                 }
             }
-            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
