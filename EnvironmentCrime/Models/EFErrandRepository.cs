@@ -166,11 +166,11 @@ namespace EnvironmentCrime.Models
 
         public string GetUserDepartment()
         {
-            var userId = GetUserName();
+            string  userId = GetUserName();
+            var employee = Employees.Where(em => em.EmployeeId == userId).First();
 
-            string userDepartment = Employees.Where(x => x.EmployeeId == GetUserName()).ToString();
 
-            return userDepartment;
+            return employee.DepartmentId;
            
         }
     }

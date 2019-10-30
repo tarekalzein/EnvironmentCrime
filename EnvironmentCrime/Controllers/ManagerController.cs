@@ -27,9 +27,10 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult CrimeManager(int id)
         {
+            string userDep = repository.GetUserDepartment();
             ViewBag.ID = id;
             TempData["id"] = id;
-            ViewBag.ListOfEmployees = repository.Employees;
+            ViewBag.ListOfEmployees = repository.Employees.Where(x=>x.DepartmentId== userDep); //Return list of employees that work at the manager's department. PS: The list include the manager him/herself! this can be excluded too.
             return View();
         }
 
