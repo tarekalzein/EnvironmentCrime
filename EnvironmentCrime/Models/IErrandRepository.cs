@@ -38,5 +38,7 @@ namespace EnvironmentCrime.Models
 
         void AddPicture(Picture picture);
         void AddSample(Sample sample);
+
+        string GetUserDepartment();
     }
 }

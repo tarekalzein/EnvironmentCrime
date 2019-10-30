@@ -7,7 +7,7 @@
 
 @section toolbar{   <ul>
         <li><a class="reports" asp-controller="Manager" asp-action="StartManager">Start(Ärenden)</a></li>
-        <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
+        <li class="right"><a class="logout" asp-controller="Account" asp-action="Logout">Logga ut</a></li>
 
     </ul>}
 
@@ -31,13 +31,13 @@
             </select>
         </p>
         <label asp-for="StatusId">
-        <p><input type="checkbox" onclick="myFunction()" id="myCheck" asp-for="StatusId" /> Ingen åtgärd:
+            <input type="checkbox" onclick="myFunction()" id="myCheck" asp-for="StatusId" /> Ingen åtgärd:
 
 
         </label>
 
         <!--<input asp-for="InvestigatorInfo" id="ActionDetail" type="text" name="reason" value="Ange motivering" disabled="disabled" onfocus="this.value=''"/></p>-->
-        <input asp-for="InvestigatorInfo" id="ActionDetail" value="Ange motivering" disabled="disabled" onfocus="this.value=''" /></p>
+        <input asp-for="InvestigatorInfo" id="ActionDetail" value="Ange motivering" disabled="disabled" onfocus="this.value=''" />
         <p>
             <input class="button" type="submit" value="Spara" />
         </p>

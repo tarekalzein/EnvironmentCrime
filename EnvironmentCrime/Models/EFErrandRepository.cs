@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,10 +8,12 @@ namespace EnvironmentCrime.Models
     public class EFErrandRepository : IErrandRepository
     {
         private ApplicationDbContext context;
+        private IHttpContextAccessor contextAccessor;
 
-        public EFErrandRepository(ApplicationDbContext ctx)
+        public EFErrandRepository(ApplicationDbContext ctx, IHttpContextAccessor contextAccessor)
         {
             context = ctx;
+            this.contextAccessor = contextAccessor;
         }
 
         public IQueryable<Errand> Errands => context.Errands.Include(e=>e.Samples).Include(e=>e.Pictures);
@@ -153,6 +156,22 @@ namespace EnvironmentCrime.Models
                 context.Samples.Add(sample);
             }
             context.SaveChanges();
+        }
+
+        public string GetUserName()
+        {
+            var userId = contextAccessor.HttpContext.User.Identity.Name;
+            return userId;
+        }
+
+        public string GetUserDepartment()
+        {
+            var userId = GetUserName();
+
+            string userDepartment = Employees.Where(x => x.EmployeeId == GetUserName()).ToString();
+
+            return userDepartment;
+           
         }
     }
 }
