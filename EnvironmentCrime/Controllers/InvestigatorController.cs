@@ -25,14 +25,11 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
-        [Authorize(Roles = "Investigator")]
-
         public ViewResult StartInvestigator()
         {
             return View(repository);
         }
 
-        [Authorize(Roles = "Investigator")]
         public ViewResult CrimeInvestigator(int id)
         {
             ViewBag.ID = id;

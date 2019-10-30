@@ -20,13 +20,11 @@ namespace EnvironmentCrime.Controllers
             repository = repo;
         }
         // GET: /<controller>/
-        [Authorize(Roles = "Manager")]
         public ViewResult StartManager()
         {
             return View(repository);
         }
 
-        [Authorize(Roles = "Manager")]
         public ViewResult CrimeManager(int id)
         {
             ViewBag.ID = id;
