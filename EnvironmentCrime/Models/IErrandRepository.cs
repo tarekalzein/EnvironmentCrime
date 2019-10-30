@@ -12,7 +12,9 @@ namespace EnvironmentCrime.Models
         IQueryable<Department> Departments { get; }
         IQueryable<Employee> Employees { get; }
         IQueryable<ErrandStatus> ErrandStatuses { get; }
+        //IQueryable<ErrandTableItem> ErrandTableItems { get; }
         Task<Errand> GetErrandDetail(int id);
+
 
         IQueryable<Sample> Samples { get; }
 
@@ -38,7 +40,12 @@ namespace EnvironmentCrime.Models
 
         void AddPicture(Picture picture);
         void AddSample(Sample sample);
+        string GetUserName();
 
         string GetUserDepartment();
+
+        IQueryable<ErrandTableItem> GetCoorErrandList();
+        IQueryable<ErrandTableItem> GetMgrErrandList(string managerDepId);
+        IQueryable<ErrandTableItem> GetInvErrandList();
     }
 }
