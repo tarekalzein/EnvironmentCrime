@@ -24,6 +24,9 @@ namespace EnvironmentCrime.Controllers
 
         public ViewResult StartCoordinator()
         {
+            InvokeRequest request = new InvokeRequest {};
+            ViewBag.ErrandList = repository.GetErrandList(request);
+            
             return View(repository);
         }
 

@@ -22,10 +22,10 @@ namespace EnvironmentCrime.Controllers
         // GET: /<controller>/
         public ViewResult StartManager()
         {
-            string userDep = repository.GetUserDepartment();
-            //return View(repository.Errands.Where(x=> x.DepartmentId==userDep));
-            ViewBag.ErrandList = repository.GetMgrErrandList(userDep);
-            ViewBag.investigatorList = repository.Employees.Where(x => x.DepartmentId == userDep);
+            InvokeRequest request = new InvokeRequest {};
+            ViewBag.ErrandList = repository.GetErrandList(request);
+
+            ViewBag.investigatorList = repository.Employees.Where(x => x.DepartmentId == repository.GetUserDepartment());
             return View(repository);
         }
 

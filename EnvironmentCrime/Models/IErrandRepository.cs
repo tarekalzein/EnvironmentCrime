@@ -45,8 +45,7 @@ namespace EnvironmentCrime.Models
         string GetUserDepartment();
 
         //IQueryable<ErrandTableItem> GetCoorErrandList();
-        Task<IQueryable<ErrandTableItem>> GetCoorErrandList();
-        IQueryable<ErrandTableItem> GetMgrErrandList(string managerDepId);
-        IQueryable<ErrandTableItem> GetInvErrandList();
+
+        IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request);
     }
 }

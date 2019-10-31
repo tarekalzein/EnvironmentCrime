@@ -17,27 +17,6 @@ namespace EnvironmentCrime.Models
         }
 
         public IQueryable<Errand> Errands => context.Errands.Include(e => e.Samples).Include(e => e.Pictures);
-        public IQueryable<ErrandTableItem> ErrandTableItems => from err in Errands
-                                                               join stat in ErrandStatuses on err.StatusId equals stat.StatusId
-                                                               join dep in Departments on err.DepartmentId equals dep.DepartmentId
-                                                               into departmentErrand
-                                                               from deptE in departmentErrand.DefaultIfEmpty()
-                                                               join em in Employees on err.EmployeeId equals em.EmployeeId
-                                                               into employeeErrand
-                                                               from empE in employeeErrand.DefaultIfEmpty()
-                                                               orderby err.RefNumber descending
-                                                               select new ErrandTableItem
-                                                               {
-                                                                   DateOfObservation = err.DateOfObservation,
-                                                                   ErrandId = err.ErrandId,
-                                                                   RefNumber = err.RefNumber,
-                                                                   TypeOfCrime = err.TypeOfCrime,
-                                                                   StatusName = stat.StatusName,
-                                                                   DepartmentName =
-                                                               (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
-                                                                   EmployeeName =
-                                                               (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                                                               };
 
         //.Where(x => x.DepartmentId!="D00") is added to exclude the Småstads Kommun from List
         public IQueryable<Department> Departments => context.Departments.Where(x => x.DepartmentId != "D00");
@@ -141,7 +120,8 @@ namespace EnvironmentCrime.Models
                 if (dbEntry.InvestigatorInfo == null)
                 {
                     dbEntry.InvestigatorInfo = errand.InvestigatorInfo;
-                } else
+                }
+                else
                 {
                     dbEntry.InvestigatorInfo += "\n" + errand.InvestigatorInfo;
                 }
@@ -196,94 +176,92 @@ namespace EnvironmentCrime.Models
         }
 
         //Case for coordinator:
-        public Task<IQueryable<ErrandTableItem>> GetCoorErrandList()
-        { 
-            return Task.Run(() =>{
-                var errandList = from err in Errands
-                                 join stat in ErrandStatuses on err.StatusId equals stat.StatusId
-                                 join dep in Departments on err.DepartmentId equals dep.DepartmentId
-                                 into departmentErrand
-                                 from deptE in departmentErrand.DefaultIfEmpty()
-                                 join em in Employees on err.EmployeeId equals em.EmployeeId
-                                 into employeeErrand
-                                 from empE in employeeErrand.DefaultIfEmpty()
-                                 orderby err.RefNumber descending
-                                 select new ErrandTableItem
-                                 {
-                                     DateOfObservation = err.DateOfObservation,
-                                     ErrandId = err.ErrandId,
-                                     RefNumber = err.RefNumber,
-                                     TypeOfCrime = err.TypeOfCrime,
-                                     StatusName = stat.StatusName,
-                                     DepartmentName =
-                                 (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
-                                     EmployeeName =
-                                 (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                                 };
+      
+
+        public IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request)
+        {
+            var tempList = Errands;
+            //No matter what, get the employee ID first
+            var userId = contextAccessor.HttpContext.User.Identity.Name;
+
+            var employee = Employees.Where(em => em.EmployeeId == userId).First();
+
+
+            if (employee.RoleTitle == "Coordinator")
+            {
+                tempList = Errands;
+
+                if (request.RefNumber != null)                   
+                {
+                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                }
+                if (request.StatusId != null)
+                {
+                    tempList = tempList.Where(err => err.StatusId == request.StatusId);
+                }
+                if(request.DepartmentId!=null)
+                {
+                    tempList = tempList.Where(err => err.DepartmentId == request.DepartmentId);
+                }
+                
+            }
+            if (employee.RoleTitle == "Manager")
+            {
+                tempList = Errands.Where(err => err.DepartmentId==employee.DepartmentId);
+
+                if (request.RefNumber != null)
+                {
+                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                }
+                if (request.StatusId != null)
+                {
+                    tempList = tempList.Where(err => err.StatusId == request.StatusId);
+                }
+                if (request.EmployeeId!=null)
+                {
+                    tempList = tempList.Where(err => err.EmployeeId == request.EmployeeId);
+                }
+            }
+            if (employee.RoleTitle == "Investigator")
+            {
+                tempList = Errands.Where(err => err.EmployeeId == employee.EmployeeId);
+
+                if(request.RefNumber != null)
+                {
+                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                }
+                if (request.StatusId != null)
+                {
+                    tempList = tempList.Where(err => err.StatusId == request.StatusId);
+                }
+            }
+
+                var errandList = from err in tempList
+                             join stat in ErrandStatuses on err.StatusId equals stat.StatusId
+                             join dep in Departments on err.DepartmentId equals dep.DepartmentId
+                             into departmentErrand
+                             from deptE in departmentErrand.DefaultIfEmpty()
+                             join em in Employees on err.EmployeeId equals em.EmployeeId
+                             into employeeErrand
+                             from empE in employeeErrand.DefaultIfEmpty()
+                             orderby err.RefNumber descending
+                             select new ErrandTableItem
+
+                             {
+                                 DateOfObservation = err.DateOfObservation,
+                                 ErrandId = err.ErrandId,
+                                 RefNumber = err.RefNumber,
+                                 TypeOfCrime = err.TypeOfCrime,
+                                 StatusName = stat.StatusName,
+                                 DepartmentName =
+                             (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
+                                 EmployeeName =
+                             (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
+                             };
+
+           
                 return errandList;
-            }); 
-                   
         }
-        public IQueryable<ErrandTableItem> GetMgrErrandList(string managerDepId)
-        {
-
-            var errandList = from err in Errands where err.DepartmentId==managerDepId
-                             join stat in ErrandStatuses on err.StatusId equals stat.StatusId
-                             join dep in Departments on err.DepartmentId equals dep.DepartmentId
-                             into departmentErrand
-                             from deptE in departmentErrand.DefaultIfEmpty()
-                             join em in Employees on err.EmployeeId equals em.EmployeeId
-                             into employeeErrand
-                             from empE in employeeErrand.DefaultIfEmpty()
-                             orderby err.RefNumber descending
-                             select new ErrandTableItem
-                             
-                             {
-                                 DateOfObservation = err.DateOfObservation,
-                                 ErrandId = err.ErrandId,
-                                 RefNumber = err.RefNumber,
-                                 TypeOfCrime = err.TypeOfCrime,
-                                 StatusName = stat.StatusName,
-                                 DepartmentName =
-                             (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
-                                 EmployeeName =
-                             (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                             }; 
-            return errandList;
-        }
-
-        public  IQueryable<ErrandTableItem> GetInvErrandList()
-        {
-            string userId = GetUserName();
-            var errandList = from err in Errands
-                             where err.EmployeeId == userId
-                             join stat in ErrandStatuses on err.StatusId equals stat.StatusId
-                             join dep in Departments on err.DepartmentId equals dep.DepartmentId
-                             into departmentErrand
-                             from deptE in departmentErrand.DefaultIfEmpty()
-                             join em in Employees on err.EmployeeId equals em.EmployeeId
-                             into employeeErrand
-                             from empE in employeeErrand.DefaultIfEmpty()
-                             orderby err.RefNumber descending
-                             select new ErrandTableItem
-
-                             {
-                                 DateOfObservation = err.DateOfObservation,
-                                 ErrandId = err.ErrandId,
-                                 RefNumber = err.RefNumber,
-                                 TypeOfCrime = err.TypeOfCrime,
-                                 StatusName = stat.StatusName,
-                                 DepartmentName =
-                             (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
-                                 EmployeeName =
-                             (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                             }; 
-            
-            return errandList;
-
-        }
-
 
     }
-
 }
