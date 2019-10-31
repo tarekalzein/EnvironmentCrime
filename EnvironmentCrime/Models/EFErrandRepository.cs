@@ -16,7 +16,7 @@ namespace EnvironmentCrime.Models
             this.contextAccessor = contextAccessor;
         }
 
-        public IQueryable<Errand> Errands => context.Errands.Include(e=>e.Samples).Include(e=>e.Pictures);
+        public IQueryable<Errand> Errands => context.Errands.Include(e => e.Samples).Include(e => e.Pictures);
         public IQueryable<ErrandTableItem> ErrandTableItems => from err in Errands
                                                                join stat in ErrandStatuses on err.StatusId equals stat.StatusId
                                                                join dep in Departments on err.DepartmentId equals dep.DepartmentId
@@ -40,7 +40,7 @@ namespace EnvironmentCrime.Models
                                                                };
 
         //.Where(x => x.DepartmentId!="D00") is added to exclude the Småstads Kommun from List
-        public IQueryable<Department> Departments => context.Departments.Where(x => x.DepartmentId!="D00");
+        public IQueryable<Department> Departments => context.Departments.Where(x => x.DepartmentId != "D00");
         public IQueryable<ErrandStatus> ErrandStatuses => context.ErrandStatuses;
         public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Sequence> Sequences => context.Sequences;
@@ -58,9 +58,9 @@ namespace EnvironmentCrime.Models
             });
         }
 
-        public string SaveErrand (Errand errand)
+        public string SaveErrand(Errand errand)
         {
-            if(errand.ErrandId==0)
+            if (errand.ErrandId == 0)
             {
                 context.Errands.Add(errand);
             }
@@ -84,7 +84,7 @@ namespace EnvironmentCrime.Models
         public int UpdateDepartment(Errand errand)
         {
             Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId); //This Can be put in a different method which is called by each update method.
-            if(dbEntry!=null)
+            if (dbEntry != null)
             {
                 dbEntry.DepartmentId = errand.DepartmentId;
             }
@@ -96,7 +96,7 @@ namespace EnvironmentCrime.Models
             Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
             if (dbEntry != null)
             {
-                dbEntry.StatusId="S_B";
+                dbEntry.StatusId = "S_B";
                 dbEntry.InvestigatorInfo = errand.InvestigatorInfo;
                 dbEntry.EmployeeId = null;
             }
@@ -138,10 +138,10 @@ namespace EnvironmentCrime.Models
             Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId);
             if (dbEntry != null)
             {
-                if (dbEntry.InvestigatorInfo == null) 
+                if (dbEntry.InvestigatorInfo == null)
                 {
                     dbEntry.InvestigatorInfo = errand.InvestigatorInfo;
-                }else
+                } else
                 {
                     dbEntry.InvestigatorInfo += "\n" + errand.InvestigatorInfo;
                 }
@@ -187,39 +187,42 @@ namespace EnvironmentCrime.Models
 
         public string GetUserDepartment()
         {
-            string  userId = GetUserName();
+            string userId = GetUserName();
             var employee = Employees.Where(em => em.EmployeeId == userId).First();
 
 
             return employee.DepartmentId;
-           
+
         }
 
         //Case for coordinator:
-        public IQueryable<ErrandTableItem> GetCoorErrandList()
-        {
-            var errandList = from err in Errands
-                            join stat in ErrandStatuses on err.StatusId equals stat.StatusId
-                            join dep in Departments on err.DepartmentId equals dep.DepartmentId
-                            into departmentErrand
-                            from deptE in departmentErrand.DefaultIfEmpty()
-                            join em in Employees on err.EmployeeId equals em.EmployeeId
-                            into employeeErrand
-                            from empE in employeeErrand.DefaultIfEmpty()
-                            orderby err.RefNumber descending
-                            select new ErrandTableItem
-                            {
-                                DateOfObservation = err.DateOfObservation,
-                                ErrandId = err.ErrandId,
-                                RefNumber = err.RefNumber,
-                                TypeOfCrime = err.TypeOfCrime,
-                                StatusName = stat.StatusName,
-                                DepartmentName =
-                            (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
-                                EmployeeName =
-                            (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                            };
-            return errandList;
+        public Task<IQueryable<ErrandTableItem>> GetCoorErrandList()
+        { 
+            return Task.Run(() =>{
+                var errandList = from err in Errands
+                                 join stat in ErrandStatuses on err.StatusId equals stat.StatusId
+                                 join dep in Departments on err.DepartmentId equals dep.DepartmentId
+                                 into departmentErrand
+                                 from deptE in departmentErrand.DefaultIfEmpty()
+                                 join em in Employees on err.EmployeeId equals em.EmployeeId
+                                 into employeeErrand
+                                 from empE in employeeErrand.DefaultIfEmpty()
+                                 orderby err.RefNumber descending
+                                 select new ErrandTableItem
+                                 {
+                                     DateOfObservation = err.DateOfObservation,
+                                     ErrandId = err.ErrandId,
+                                     RefNumber = err.RefNumber,
+                                     TypeOfCrime = err.TypeOfCrime,
+                                     StatusName = stat.StatusName,
+                                     DepartmentName =
+                                 (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
+                                     EmployeeName =
+                                 (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
+                                 };
+                return errandList;
+            }); 
+                   
         }
         public IQueryable<ErrandTableItem> GetMgrErrandList(string managerDepId)
         {
@@ -245,7 +248,7 @@ namespace EnvironmentCrime.Models
                              (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
                                  EmployeeName =
                              (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                             }; ;
+                             }; 
             return errandList;
         }
 
@@ -274,7 +277,8 @@ namespace EnvironmentCrime.Models
                              (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
                                  EmployeeName =
                              (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
-                             }; ;
+                             }; 
+            
             return errandList;
 
         }
