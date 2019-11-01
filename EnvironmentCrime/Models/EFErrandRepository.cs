@@ -159,24 +159,15 @@ namespace EnvironmentCrime.Models
             context.SaveChanges();
         }
 
-        public string GetUserName()
-        {
-            var userId = contextAccessor.HttpContext.User.Identity.Name;
-            return userId;
-        }
-
         public string GetUserDepartment()
         {
-            string userId = GetUserName();
+            var userId = contextAccessor.HttpContext.User.Identity.Name;
             var employee = Employees.Where(em => em.EmployeeId == userId).First();
 
 
             return employee.DepartmentId;
 
-        }
-
-        //Case for coordinator:
-      
+        }      
 
         public IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request)
         {
@@ -193,7 +184,8 @@ namespace EnvironmentCrime.Models
 
                 if (request.RefNumber != null)                   
                 {
-                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                    tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
+                    //tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
                 }
                 if (request.StatusId != null)
                 {
@@ -211,7 +203,7 @@ namespace EnvironmentCrime.Models
 
                 if (request.RefNumber != null)
                 {
-                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                    tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
                 }
                 if (request.StatusId != null)
                 {
@@ -228,7 +220,7 @@ namespace EnvironmentCrime.Models
 
                 if(request.RefNumber != null)
                 {
-                    tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
+                    tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
                 }
                 if (request.StatusId != null)
                 {

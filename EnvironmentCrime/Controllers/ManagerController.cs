@@ -20,13 +20,12 @@ namespace EnvironmentCrime.Controllers
             repository = repo;
         }
         // GET: /<controller>/
-        public ViewResult StartManager()
+        public ViewResult StartManager(InvokeRequest request)
         {
-            InvokeRequest request = new InvokeRequest {};
             ViewBag.ErrandList = repository.GetErrandList(request);
-
-            ViewBag.investigatorList = repository.Employees.Where(x => x.DepartmentId == repository.GetUserDepartment());
-            return View(repository);
+            ViewBag.ListOfStatuses = repository.ErrandStatuses;
+            ViewBag.EmployeeList = repository.Employees.Where(x => x.DepartmentId == repository.GetUserDepartment());
+            return View();
         }
 
         public ViewResult CrimeManager(int id)
@@ -50,6 +49,26 @@ namespace EnvironmentCrime.Controllers
                 repository.UpdateEmployee(errand);
             }
             return RedirectToAction("CrimeManager", new { id = errand.ErrandId });    
+        }
+
+        [HttpPost]
+        public IActionResult Filter(InvokeRequest invokeRequest)
+        {
+            InvokeRequest request = new InvokeRequest { };
+            if (invokeRequest.StatusId != null && invokeRequest.StatusId != "Välj alla")
+            {
+                request.StatusId = invokeRequest.StatusId;
+            }
+            if (invokeRequest.EmployeeId != null && invokeRequest.EmployeeId != "Välj alla")
+            {
+                request.EmployeeId = invokeRequest.EmployeeId;
+            }
+            if (!string.IsNullOrWhiteSpace(invokeRequest.RefNumber))
+            {
+                request.RefNumber = invokeRequest.RefNumber;
+            }
+
+            return RedirectToAction("StartManager", request);
         }
 
     }

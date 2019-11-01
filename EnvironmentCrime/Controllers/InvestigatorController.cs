@@ -25,11 +25,11 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
-        public ViewResult StartInvestigator()
+        public ViewResult StartInvestigator(InvokeRequest request)
         {
-            InvokeRequest request = new InvokeRequest { };
             ViewBag.ErrandList = repository.GetErrandList(request);
-            return View(repository);
+            ViewBag.ListOfStatuses = repository.ErrandStatuses;
+            return View();
         }
 
         public ViewResult CrimeInvestigator(int id)
@@ -112,6 +112,21 @@ namespace EnvironmentCrime.Controllers
                 }
             }
             return RedirectToAction("CrimeInvestigator", new { id = errand.ErrandId });            
+        }
+
+        public IActionResult Filter(InvokeRequest invokeRequest)
+        {
+            InvokeRequest request = new InvokeRequest { };
+            if (invokeRequest.StatusId != null && invokeRequest.StatusId != "Välj alla")
+            {
+                request.StatusId = invokeRequest.StatusId;
+            }
+            if (!string.IsNullOrWhiteSpace(invokeRequest.RefNumber))
+            {
+                request.RefNumber = invokeRequest.RefNumber;
+            }
+
+            return RedirectToAction("StartInvestigator", request);
         }
     }
 }

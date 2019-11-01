@@ -1,46 +1,39 @@
 ﻿@{
-    @model IErrandRepository
+    @model InvokeRequest
     Layout = "_CoordinatorLoginLayout";
 }
 
 <h2>Ärenden</h2>
 <p class="info">Du är inloggad som samordnare</p>
 
-<table id="managerForm">
-    <tr>
-        <td class="label">Välj status:</td>
-        <td class="label">Välj avdelning:</td>
-        <td>&nbsp;</td>
-        <td class="label">Ärendenummer:</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>
+<form asp-controller="Coordinator" asp-action="Filter" method="post">
+    <table id="managerForm">
+        <tr>
+            <td class="label">Välj status:</td>
+            <td class="label">Välj avdelning:</td>
+            <td>&nbsp;</td>
+            <td class="label">Ärendenummer:</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
 
-            <select name="status">
-                <option selected="selected">Välj alla</option>
-                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
-                {
-                    <option>@errandStatus.StatusName</option>
-                }
-            </select>
-        </td>
-        <td>
-            <select name="department">
-                <option selected="selected">Välj alla</option>
-                @foreach (Department department in Model.Departments)
-                {
-                    <option>@department.DepartmentName</option>
-                }
-
-            </select>
-        </td>
-        <td><input class="button" type="submit" value="Hämta lista" /></td>
-        <td><input name="casenumber" /></td>
-        <td><input class="button" type="submit" value="Sök" /></td>
-    </tr>
-</table>
-
+                <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
+                    <option selected="selected">Välj alla</option>                    
+                </select>
+            </td>
+            <td>
+                <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments,"DepartmentId","DepartmentName"))">
+                    <option selected="selected">Välj alla</option>
+                    
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Hämta lista" /></td>
+            <td><input asp-for="RefNumber"/></td>
+            <td><input class="button" type="submit" value="Sök" /></td>
+        </tr>
+    </table>
+</form>
 
 <!--Nedan ser man en lista på ärenden-->
 <table>

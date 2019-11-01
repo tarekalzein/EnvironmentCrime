@@ -15,7 +15,6 @@ namespace EnvironmentCrime.Models
         //IQueryable<ErrandTableItem> ErrandTableItems { get; }
         Task<Errand> GetErrandDetail(int id);
 
-
         IQueryable<Sample> Samples { get; }
 
         IQueryable<Picture> Pictures { get; }
@@ -40,11 +39,8 @@ namespace EnvironmentCrime.Models
 
         void AddPicture(Picture picture);
         void AddSample(Sample sample);
-        string GetUserName();
 
         string GetUserDepartment();
-
-        //IQueryable<ErrandTableItem> GetCoorErrandList();
 
         IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request);
     }

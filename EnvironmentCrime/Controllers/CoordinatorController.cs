@@ -3,6 +3,7 @@ using EnvironmentCrime.Models;
 using Microsoft.AspNetCore.Http;
 using EnvironmentCrime.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,13 +22,14 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
-
-        public ViewResult StartCoordinator()
+        public ViewResult StartCoordinator(InvokeRequest request)
         {
-            InvokeRequest request = new InvokeRequest {};
-            ViewBag.ErrandList = repository.GetErrandList(request);
             
-            return View(repository);
+            ViewBag.ErrandList = repository.GetErrandList(request);
+            ViewBag.ListOfStatuses = repository.ErrandStatuses;
+            ViewBag.ListOfDepartments = repository.Departments;
+
+            return View();
         }
 
         public ViewResult ReportCrime()
@@ -87,6 +89,24 @@ namespace EnvironmentCrime.Controllers
             
             return RedirectToAction("CrimeCoordinator", new {id= errand.ErrandId });
             }
-           
+        [HttpPost]
+        public IActionResult Filter(InvokeRequest invokeRequest)
+        {
+            InvokeRequest request = new InvokeRequest { };
+            if (invokeRequest.StatusId != null && invokeRequest.StatusId!= "Välj alla")
+            {
+                request.StatusId = invokeRequest.StatusId;
+            }
+            if (invokeRequest.DepartmentId != null && invokeRequest.DepartmentId!= "Välj alla")
+            {
+                request.DepartmentId = invokeRequest.DepartmentId;
+            }
+            if (!string.IsNullOrWhiteSpace(invokeRequest.RefNumber))
+            {
+                request.RefNumber = invokeRequest.RefNumber;
+            }
+
+            return RedirectToAction("StartCoordinator", request);
+        }       
     }
 }
