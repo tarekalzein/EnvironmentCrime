@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using EnvironmentCrime.Models;
+﻿using EnvironmentCrime.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnvironmentCrime.Controllers
 {
-    [Authorize(Roles ="Manager")]
+    [Authorize(Roles = "Manager")]
     public class ManagerController : Controller
     {
         private IErrandRepository repository;
@@ -32,7 +28,7 @@ namespace EnvironmentCrime.Controllers
             string userDep = repository.GetUserDepartment();
             ViewBag.ID = id;
             TempData["id"] = id;
-            ViewBag.ListOfEmployees = repository.Employees.Where(x=>x.DepartmentId== userDep); //Return list of employees that work at the manager's department. PS: The list include the manager him/herself! this can be excluded too.
+            ViewBag.ListOfEmployees = repository.Employees.Where(x => x.DepartmentId == userDep); //Return list of employees that work at the manager's department. PS: The list include the manager him/herself! this can be excluded too.
             return View();
         }
 
@@ -47,7 +43,7 @@ namespace EnvironmentCrime.Controllers
             {
                 repository.UpdateEmployee(errand);
             }
-            return RedirectToAction("CrimeManager", new { id = errand.ErrandId });    
+            return RedirectToAction("CrimeManager", new { id = errand.ErrandId });
         }
 
         [HttpPost]

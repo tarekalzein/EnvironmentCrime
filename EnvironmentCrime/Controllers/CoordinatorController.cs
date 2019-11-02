@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EnvironmentCrime.Infrastructure;
 using EnvironmentCrime.Models;
-using Microsoft.AspNetCore.Http;
-using EnvironmentCrime.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +23,7 @@ namespace EnvironmentCrime.Controllers
         // GET: /<controller>/
         public ViewResult StartCoordinator(InvokeRequest request)
         {
-            
+
             ViewBag.ErrandList = repository.GetErrandList(request);
             ViewBag.ListOfDepartments = repository.Departments;
 
@@ -37,7 +36,8 @@ namespace EnvironmentCrime.Controllers
             if (errand == null)
             {
                 return View();
-            }else
+            }
+            else
             {
                 return View(errand);
             }
@@ -79,24 +79,24 @@ namespace EnvironmentCrime.Controllers
         [HttpPost]
         public IActionResult Save(Errand errand)
         {
-             
+
             errand.ErrandId = int.Parse(TempData["Id"].ToString());
             if (errand.DepartmentId != "Välj alla")
             {
                 repository.UpdateDepartment(errand);
             }
-            
-            return RedirectToAction("CrimeCoordinator", new {id= errand.ErrandId });
-            }
+
+            return RedirectToAction("CrimeCoordinator", new { id = errand.ErrandId });
+        }
         [HttpPost]
         public IActionResult Filter(InvokeRequest invokeRequest)
         {
             InvokeRequest request = new InvokeRequest { };
-            if (invokeRequest.StatusId != null && invokeRequest.StatusId!= "Välj alla")
+            if (invokeRequest.StatusId != null && invokeRequest.StatusId != "Välj alla")
             {
                 request.StatusId = invokeRequest.StatusId;
             }
-            if (invokeRequest.DepartmentId != null && invokeRequest.DepartmentId!= "Välj alla")
+            if (invokeRequest.DepartmentId != null && invokeRequest.DepartmentId != "Välj alla")
             {
                 request.DepartmentId = invokeRequest.DepartmentId;
             }
@@ -106,6 +106,6 @@ namespace EnvironmentCrime.Controllers
             }
 
             return RedirectToAction("StartCoordinator", request);
-        }       
+        }
     }
 }

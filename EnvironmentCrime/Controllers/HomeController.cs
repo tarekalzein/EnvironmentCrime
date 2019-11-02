@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EnvironmentCrime.Infrastructure;
 using EnvironmentCrime.Models;
-using EnvironmentCrime.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,7 +56,7 @@ namespace EnvironmentCrime.Controllers
         {
             HttpContext.Session.SetJson("NewErrand", errand);
             return View(errand);
-            
+
         }
 
         public ViewResult Thanks()
@@ -77,10 +77,10 @@ namespace EnvironmentCrime.Controllers
                 HttpContext.Session.Remove("NewErrand");
                 return View(errand);
             }
-         
+
         }
 
-        
+
 
     }
 }

@@ -167,7 +167,7 @@ namespace EnvironmentCrime.Models
 
             return employee.DepartmentId;
 
-        }      
+        }
 
         public IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request)
         {
@@ -182,7 +182,7 @@ namespace EnvironmentCrime.Models
             {
                 tempList = Errands;
 
-                if (request.RefNumber != null)                   
+                if (request.RefNumber != null)
                 {
                     tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
                     //tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
@@ -191,15 +191,15 @@ namespace EnvironmentCrime.Models
                 {
                     tempList = tempList.Where(err => err.StatusId == request.StatusId);
                 }
-                if(request.DepartmentId!=null)
+                if (request.DepartmentId != null)
                 {
                     tempList = tempList.Where(err => err.DepartmentId == request.DepartmentId);
                 }
-                
+
             }
             if (employee.RoleTitle == "Manager")
             {
-                tempList = Errands.Where(err => err.DepartmentId==employee.DepartmentId);
+                tempList = Errands.Where(err => err.DepartmentId == employee.DepartmentId);
 
                 if (request.RefNumber != null)
                 {
@@ -209,7 +209,7 @@ namespace EnvironmentCrime.Models
                 {
                     tempList = tempList.Where(err => err.StatusId == request.StatusId);
                 }
-                if (request.EmployeeId!=null)
+                if (request.EmployeeId != null)
                 {
                     tempList = tempList.Where(err => err.EmployeeId == request.EmployeeId);
                 }
@@ -218,7 +218,7 @@ namespace EnvironmentCrime.Models
             {
                 tempList = Errands.Where(err => err.EmployeeId == employee.EmployeeId);
 
-                if(request.RefNumber != null)
+                if (request.RefNumber != null)
                 {
                     tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
                 }
@@ -228,7 +228,7 @@ namespace EnvironmentCrime.Models
                 }
             }
 
-                var errandList = from err in tempList
+            var errandList = from err in tempList
                              join stat in ErrandStatuses on err.StatusId equals stat.StatusId
                              join dep in Departments on err.DepartmentId equals dep.DepartmentId
                              into departmentErrand
@@ -251,8 +251,8 @@ namespace EnvironmentCrime.Models
                              (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
                              };
 
-           
-                return errandList;
+
+            return errandList;
         }
 
     }

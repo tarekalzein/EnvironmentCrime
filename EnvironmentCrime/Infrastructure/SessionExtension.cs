@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace EnvironmentCrime.Infrastructure
@@ -14,7 +10,7 @@ namespace EnvironmentCrime.Infrastructure
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
-        public static T GetJson<T> (this ISession session, string key)
+        public static T GetJson<T>(this ISession session, string key)
         {
             var sessionData = session.GetString(key);
             return sessionData == null

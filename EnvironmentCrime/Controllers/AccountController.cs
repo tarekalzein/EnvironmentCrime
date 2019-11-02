@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using EnvironmentCrime.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using EnvironmentCrime.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Controllers
 {
@@ -15,7 +12,7 @@ namespace EnvironmentCrime.Controllers
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager )
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -26,7 +23,7 @@ namespace EnvironmentCrime.Controllers
         {
             return View(new LoginModel
             {
-                ReturnUrl=returnUrl
+                ReturnUrl = returnUrl
             });
         }
 
@@ -35,18 +32,18 @@ namespace EnvironmentCrime.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 IdentityUser user = await userManager.FindByNameAsync(loginModel.UserName);
 
-                if(user !=null)
+                if (user != null)
                 {
                     await signInManager.SignOutAsync();
 
                     if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        
-                        if(await userManager.IsInRoleAsync(user, "Coordinator"))
+
+                        if (await userManager.IsInRoleAsync(user, "Coordinator"))
                             return Redirect(loginModel?.ReturnUrl ?? "/Coordinator/startCoordinator");
 
                         if (await userManager.IsInRoleAsync(user, "Manager"))
@@ -64,7 +61,7 @@ namespace EnvironmentCrime.Controllers
 
 
 
-        public async  Task<RedirectResult> Logout(string returnUrl ="~/Account/Login")
+        public async Task<RedirectResult> Logout(string returnUrl = "~/Account/Login")
         {
             await signInManager.SignOutAsync();
             return Redirect(returnUrl);
@@ -75,6 +72,6 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-       
+
     }
 }

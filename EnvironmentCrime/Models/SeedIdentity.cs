@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Models
 {
@@ -20,23 +18,23 @@ namespace EnvironmentCrime.Models
 
         private static async Task CreateRoles(RoleManager<IdentityRole> roleManager)
         {
-            if(!await roleManager.RoleExistsAsync("Coordinator"))
+            if (!await roleManager.RoleExistsAsync("Coordinator"))
             {
                 await roleManager.CreateAsync(new IdentityRole("Coordinator"));
             }
 
-            if(!await roleManager.RoleExistsAsync("Manager"))
+            if (!await roleManager.RoleExistsAsync("Manager"))
             {
                 await roleManager.CreateAsync(new IdentityRole("Manager"));
             }
 
-            if(!await roleManager.RoleExistsAsync("Investigator"))
+            if (!await roleManager.RoleExistsAsync("Investigator"))
             {
                 await roleManager.CreateAsync(new IdentityRole("Investigator"));
             }
         }
-        
-            
+
+
         private static async Task CreateUsers(UserManager<IdentityUser> uManager)
         {
             IdentityUser E001 = new IdentityUser("E001");
@@ -51,7 +49,7 @@ namespace EnvironmentCrime.Models
             IdentityUser E300 = new IdentityUser("E300");
             IdentityUser E301 = new IdentityUser("E301");
             IdentityUser E302 = new IdentityUser("E302");
-            IdentityUser E303 = new IdentityUser("E303"); 
+            IdentityUser E303 = new IdentityUser("E303");
             IdentityUser E400 = new IdentityUser("E400");
             IdentityUser E401 = new IdentityUser("E401");
             IdentityUser E402 = new IdentityUser("E402");

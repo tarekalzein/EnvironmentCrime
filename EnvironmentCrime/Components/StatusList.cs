@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EnvironmentCrime.Models;
 using Microsoft.AspNetCore.Mvc;
-using EnvironmentCrime.Models;
 
 namespace EnvironmentCrime.Components
 {
