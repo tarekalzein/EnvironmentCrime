@@ -23,9 +23,7 @@
         </tr>
         <tr>
             <td>
-                <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
-                    <option selected="selected">Välj alla</option>
-                </select>
+                @await Component.InvokeAsync("StatusList")
             </td>
             <td><input class="button" type="submit" value="Hämta lista" /></td>
             <td><input asp-for="RefNumber" /></td>

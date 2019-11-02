@@ -26,7 +26,6 @@ namespace EnvironmentCrime.Controllers
         {
             
             ViewBag.ErrandList = repository.GetErrandList(request);
-            ViewBag.ListOfStatuses = repository.ErrandStatuses;
             ViewBag.ListOfDepartments = repository.Departments;
 
             return View();

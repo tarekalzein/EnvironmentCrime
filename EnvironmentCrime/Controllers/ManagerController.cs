@@ -23,7 +23,6 @@ namespace EnvironmentCrime.Controllers
         public ViewResult StartManager(InvokeRequest request)
         {
             ViewBag.ErrandList = repository.GetErrandList(request);
-            ViewBag.ListOfStatuses = repository.ErrandStatuses;
             ViewBag.EmployeeList = repository.Employees.Where(x => x.DepartmentId == repository.GetUserDepartment());
             return View();
         }

@@ -17,10 +17,7 @@
         </tr>
         <tr>
             <td>
-
-                <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
-                    <option selected="selected">Välj alla</option>                    
-                </select>
+                @await  Component.InvokeAsync("StatusList")
             </td>
             <td>
                 <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments,"DepartmentId","DepartmentName"))">

@@ -28,7 +28,6 @@ namespace EnvironmentCrime.Controllers
         public ViewResult StartInvestigator(InvokeRequest request)
         {
             ViewBag.ErrandList = repository.GetErrandList(request);
-            ViewBag.ListOfStatuses = repository.ErrandStatuses;
             return View();
         }
 
