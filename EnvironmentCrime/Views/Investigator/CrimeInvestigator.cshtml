@@ -34,9 +34,8 @@
         <input type="file" name="image" />
 
         <p class="label">Ändring av status:</p>
-        <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
-            <option selected="selected">Välj</option>
-        </select>
+        @await Component.InvokeAsync("StatusList")
+
         <p>
             <input class="button" type="submit" value="Spara ändringarna" />
         </p>

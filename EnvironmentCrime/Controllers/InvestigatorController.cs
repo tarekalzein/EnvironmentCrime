@@ -12,6 +12,7 @@ namespace EnvironmentCrime.Controllers
     [Authorize(Roles = "Investigator")]
     public class InvestigatorController : Controller
     {
+        //Read/write to temp files
         private IHostingEnvironment environment;
 
         private IErrandRepository repository;
@@ -23,11 +24,17 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
+        /// <summary>
+        /// Action method that receives request object and returns view with table of data filtered according to <c>request</c>
+        /// </summary>
+        /// <param name="request">object of <c>InvokeRequest that holds filtering parameters</c></param>
+        /// <returns></returns>
         public ViewResult StartInvestigator(InvokeRequest request)
         {
             ViewBag.ErrandList = repository.GetErrandList(request);
             return View();
         }
+
 
         public ViewResult CrimeInvestigator(int id)
         {
@@ -56,7 +63,7 @@ namespace EnvironmentCrime.Controllers
                 repository.UpdateInvestigatorInfo(errand);
             }
 
-            if (errand.StatusId != "Välj")
+            if (errand.StatusId != "Välj alla")
             {
                 repository.UpdateStatusId(errand);
             }
