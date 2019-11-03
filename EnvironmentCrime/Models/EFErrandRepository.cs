@@ -5,11 +5,19 @@ using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Models
 {
+ /// <summary>
+ /// Class to make data from the database available.
+ /// </summary>
     public class EFErrandRepository : IErrandRepository
     {
         private ApplicationDbContext context;
         private IHttpContextAccessor contextAccessor;
 
+        /// <summary>
+        /// Constructor with connection to application database and ContextAccessor to fetch logged user.
+        /// </summary>
+        /// <param name="ctx">object of the applicaiton database.</param>
+        /// <param name="contextAccessor"></param>
         public EFErrandRepository(ApplicationDbContext ctx, IHttpContextAccessor contextAccessor)
         {
             context = ctx;
@@ -28,6 +36,11 @@ namespace EnvironmentCrime.Models
 
         public IQueryable<Picture> Pictures => context.Pictures;
 
+        /// <summary>
+        /// Method that fetches errand detail from database
+        /// </summary>
+        /// <param name="id">Id of the requested errand</param>
+        /// <returns>errandDetail model object</returns>
         public Task<Errand> GetErrandDetail(int id)
         {
             return Task.Run(() =>
@@ -37,6 +50,11 @@ namespace EnvironmentCrime.Models
             });
         }
 
+        /// <summary>
+        /// Method to add the errand object data to database if no similar ID exists.
+        /// </summary>
+        /// <param name="errand">object of errand to be added to to DB</param>
+        /// <returns>Created errand's ref number to be shown in view.</returns>
         public string SaveErrand(Errand errand)
         {
             if (errand.ErrandId == 0)
@@ -48,18 +66,30 @@ namespace EnvironmentCrime.Models
             return errand.RefNumber;
         }
 
+        /// <summary>
+        /// Method to fetch current sequence from the database.
+        /// </summary>
+        /// <returns>int the current value of the sequence.</returns>
         public int GetSequence()
         {
             var sequenceDetail = Sequences.Where(sq => sq.Id == 1).First();
             return sequenceDetail.CurrentValue;
         }
+
+        /// <summary>
+        /// Method to increment the sequence after each new errand.
+        /// </summary>
         public void UpdateSequence()
         {
             Sequence dbEntry = context.Sequences.FirstOrDefault(sq => sq.Id == 1);
             dbEntry.CurrentValue += 1;
             context.SaveChanges();
         }
-
+        /// <summary>
+        /// Methods to update information of an errand. 
+        /// </summary>
+        /// <param name="errand"></param>
+        /// <returns>The updated errand Id</returns>
         public int UpdateDepartment(Errand errand)
         {
             Errand dbEntry = context.Errands.FirstOrDefault(s => s.ErrandId == errand.ErrandId); //This Can be put in a different method which is called by each update method.
@@ -141,6 +171,12 @@ namespace EnvironmentCrime.Models
             return errand.ErrandId;
         }
 
+        /// <summary>
+        /// <c>AddPicture</c> and <c>AddSample</c>
+        /// Methods to add details of the attached errand to the db.
+        /// data includes name of the file and its link (address).
+        /// </summary>
+        /// <param name="picture"></param>
         public void AddPicture(Picture picture)
         {
             if (picture.PictureId == 0)
@@ -159,16 +195,23 @@ namespace EnvironmentCrime.Models
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Helper method that returns an employee department ID.
+        /// </summary>
+        /// <returns></returns>
         public string GetUserDepartment()
         {
             var userId = contextAccessor.HttpContext.User.Identity.Name;
             var employee = Employees.Where(em => em.EmployeeId == userId).First();
-
-
             return employee.DepartmentId;
 
         }
 
+        /// <summary>
+        /// Method to fetch list of data, filtered by request.
+        /// </summary>
+        /// <param name="request">Object of <c>InvokeRequest</c> that holds filter information to fetch data from the database</param>
+        /// <returns>returns the generated list.</returns>
         public IQueryable<ErrandTableItem> GetErrandList(InvokeRequest request)
         {
             var tempList = Errands;
@@ -177,14 +220,14 @@ namespace EnvironmentCrime.Models
 
             var employee = Employees.Where(em => em.EmployeeId == userId).First();
 
-
+            //Filtering data first according to employee's role.
             if (employee.RoleTitle == "Coordinator")
             {
-                tempList = Errands;
+                tempList = Errands; //Create initial List for the specific employee role.
 
                 if (request.RefNumber != null)
                 {
-                    tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber));
+                    tempList = tempList.Where(err => err.RefNumber.Contains(request.RefNumber)); // search input doesn't need to be exact.
                     //tempList = tempList.Where(err => err.RefNumber == request.RefNumber);
                 }
                 if (request.StatusId != null)
@@ -228,6 +271,7 @@ namespace EnvironmentCrime.Models
                 }
             }
 
+            //Joining tables with the resulting list. This is to show some information in a more user-friendly manner:example: Status name. department name.
             var errandList = from err in tempList
                              join stat in ErrandStatuses on err.StatusId equals stat.StatusId
                              join dep in Departments on err.DepartmentId equals dep.DepartmentId
@@ -246,7 +290,7 @@ namespace EnvironmentCrime.Models
                                  TypeOfCrime = err.TypeOfCrime,
                                  StatusName = stat.StatusName,
                                  DepartmentName =
-                             (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName),
+                             (err.DepartmentId == null ? "ej tillsatt" : deptE.DepartmentName), //show "ej tillsatt" if no data available in this field.
                                  EmployeeName =
                              (err.EmployeeId == null ? "ej tillsatt" : empE.EmployeeName)
                              };

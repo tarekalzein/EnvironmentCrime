@@ -35,7 +35,11 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Method Action.
+        /// </summary>
+        /// <param name="id">int that takes the id of an errand to fetch its data from db</param>
+        /// <returns></returns>
         public ViewResult CrimeInvestigator(int id)
         {
             ViewBag.ID = id;
@@ -44,7 +48,11 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Action method to save changes made to an errand. 
+        /// </summary>
+        /// <param name="errand">object of errand that will be shown and updated</param>
+        /// <returns>Redirect to the Errand detail view <C>CrimeInvestigator</C> with the id of the same errand to show changes</returns>
         [HttpPost]
         public async Task<IActionResult> Save(Errand errand, IFormFile document, IFormFile image)
         {
@@ -119,6 +127,12 @@ namespace EnvironmentCrime.Controllers
             return RedirectToAction("CrimeInvestigator", new { id = errand.ErrandId });
         }
 
+        /// <summary>
+        /// Method that creates an object of <c>InvokeRequest</c> (request) to be sent to database and return filtered data.
+        /// data is fetched from form (dropdown lists and input textbox) if not null.
+        /// </summary>
+        /// <param name="invokeRequest">Object of Model <c>InvokeRequest</c></param>
+        /// <returns>redirection to the same page but with filtered data using a request object.</returns>
         public IActionResult Filter(InvokeRequest invokeRequest)
         {
             InvokeRequest request = new InvokeRequest { };

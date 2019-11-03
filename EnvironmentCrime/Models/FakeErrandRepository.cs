@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Models
 {
+
+    /// <summary>
+    /// Test Class: creates list of fakes Errands for initial testing purposes.
+    /// </summary>
     public class FakeErrandRepository //:IErrandRepository
     {
         public IQueryable<Errand> Errands => new List<Errand> {

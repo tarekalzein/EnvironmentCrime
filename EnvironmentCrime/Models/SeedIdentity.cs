@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 namespace EnvironmentCrime.Models
 {
     public class SeedIdentity
-    {
+    {/// <summary>
+    /// Class to feed identity data to the identity database.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
         public static async Task CheckDbPopulated(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();

@@ -6,6 +6,11 @@ namespace EnvironmentCrime.Models
 {
     public class SeedData
     {
+
+        /// <summary>
+        /// Class to seed the data to the database (Code-first-Approach)
+        /// </summary>
+        /// <param name="services"></param>
         public static void CheckDbPopulated(IServiceProvider services)
         {
             var context = services.GetRequiredService<ApplicationDbContext>();

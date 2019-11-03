@@ -6,6 +6,10 @@ namespace EnvironmentCrime.Models
 {
     public interface IErrandRepository
     {
+
+        /// <summary>
+        /// Interface to be used in the application to fetch data from database, fitler it and apply CRUD operations.
+        /// </summary>
         IQueryable<Errand> Errands { get; }
         IQueryable<Department> Departments { get; }
         IQueryable<Employee> Employees { get; }

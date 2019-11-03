@@ -32,6 +32,11 @@ namespace EnvironmentCrime.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Action method to save changes made to an errand. 
+        /// </summary>
+        /// <param name="errand">object of errand that will be shown and updated</param>
+        /// <returns>Redirect to the Errand detail view <C>CrimeManager</C> with the id of the same errand to show changes</returns>
         public IActionResult Save(Errand errand)
         {
             errand.ErrandId = int.Parse(TempData["id"].ToString());
@@ -46,6 +51,12 @@ namespace EnvironmentCrime.Controllers
             return RedirectToAction("CrimeManager", new { id = errand.ErrandId });
         }
 
+        /// <summary>
+        /// Method that creates an object of <c>InvokeRequest</c> (request) to be sent to database and return filtered data.
+        /// data is fetched from form (dropdown lists and input textbox) if not null.
+        /// </summary>
+        /// <param name="invokeRequest">Object of Model <c>InvokeRequest</c></param>
+        /// <returns>redirection to the same page but with filtered data using a request object.</returns>
         [HttpPost]
         public IActionResult Filter(InvokeRequest invokeRequest)
         {

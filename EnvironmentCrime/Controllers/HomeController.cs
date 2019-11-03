@@ -17,6 +17,11 @@ namespace EnvironmentCrime.Controllers
         }
 
         // GET: /<controller>/
+        /// <summary>
+        /// Action method of index page.
+        /// If there are saved session with data, it fills the form automatically on start
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
@@ -31,7 +36,7 @@ namespace EnvironmentCrime.Controllers
                 return View(errand);
             }
         }
-
+        // Simple action methods that open the corresponding pages
         public ViewResult Services()
         {
             return View();
@@ -51,6 +56,12 @@ namespace EnvironmentCrime.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// Method that receives the data from form and saves it to a session
+        /// </summary>
+        /// <param name="errand">object of new errand from form</param>
+        /// <returns>The view with the errand data</returns>
         [HttpPost]
         public ViewResult Validate(Errand errand)
         {
@@ -59,6 +70,11 @@ namespace EnvironmentCrime.Controllers
 
         }
 
+        /// <summary>
+        /// Gets errand data from the session and saves it to the database
+        /// Checkout similar method in coordinator controller
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Thanks()
         {
             Errand errand = HttpContext.Session.GetJson<Errand>("NewErrand");

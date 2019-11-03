@@ -6,18 +6,31 @@ using System.Threading.Tasks;
 
 namespace EnvironmentCrime.Controllers
 {
+    /// <summary>
+    /// Controller class that handles the login, logout and Roles.
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
+        /// <summary>
+        /// Constructor with initialization of UserManager and SignInManager
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns>returnUrl of login</returns>
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
@@ -27,6 +40,11 @@ namespace EnvironmentCrime.Controllers
             });
         }
 
+        /// <summary>
+        /// Meothd <c>Login</c> that takes parameter loginModel and validates it with Login Db.
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns>returns view with the assigned returnUrl according to login.</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -60,7 +78,11 @@ namespace EnvironmentCrime.Controllers
         }
 
 
-
+        /// <summary>
+        /// Method <c>Logout</c>
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns>returnUrl after logout</returns>
         public async Task<RedirectResult> Logout(string returnUrl = "~/Account/Login")
         {
             await signInManager.SignOutAsync();

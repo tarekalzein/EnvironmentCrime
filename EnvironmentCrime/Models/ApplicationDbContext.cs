@@ -2,6 +2,10 @@
 
 namespace EnvironmentCrime.Models
 {
+ /// <summary>
+ /// Class that holds the main Database connection of the application
+ /// It contains DBsets of all tables in the database.
+ /// </summary>
     public class ApplicationDbContext : DbContext
     {
         //Constructor
