@@ -1,0 +1,82 @@
+﻿@{
+    @model Errand
+}
+
+    <h3>Ärende:  @Model.RefNumber</h3>
+    <section id="leftColumn">
+        <h3>Anmälan</h3>
+        <p>
+            <span class="label">Typ av brott:</span><br />
+            @Model.TypeOfCrime
+        </p>
+        <p>
+            <span class="label">Brottsplats: </span><br />
+            @Model.Place
+        </p>
+        <p>
+            <span class="label">Brottsdatum: </span><br />
+            @Model.DateOfObservation.ToString("yyyy/MM/dd")
+        </p>
+        <p>
+            <span class="label">Anmälare: </span><br />
+            @Model.InformerName
+        </p>
+        <p>
+            <span class="label">Telefon: </span><br />
+            @Model.InformerPhone
+        </p>
+        <p>
+            <span class="label">Observationer:</span><br />
+            @Model.Observation
+        </p>
+    </section>
+
+    <section id="rightColumn">
+        <h3>Utredning</h3>
+        <p>
+            <span class="label">Status:</span><br />
+            @Model.StatusId
+        </p>
+        <p>
+            <span class="label">Ansvarig avdelning: </span><br />
+            @Model.DepartmentId
+        </p>
+        <p>
+            <span class="label">Handläggare: </span><br />
+            @Model.EmployeeId
+        </p>
+        <p>
+            <span class="label">Provtagning: </span><br />
+            <!--Provtagning.pdf-->
+            @{ int counter = 1;
+                if (Model.Samples.Count() == 0)
+                { <span>Inga filer finns</span>}
+
+                foreach (Sample sample in Model.Samples)
+                {
+                    <a href="~/uploads/samples/@sample.SampleName" target="_blank">[@counter]</a><span> </span>
+                    counter++;
+                }
+
+            }
+        </p>
+        <p>
+            <span class="label">Ytterligare information: </span><br />
+            @Model.InvestigatorInfo
+        </p>
+        <p>
+            <span class="label">Händelser: </span><br />
+            @Model.InvestigatorAction
+        </p>
+            <p>
+                <span class="label">Bilder: </span><br />
+                @{ if (Model.Pictures.Count() == 0)
+                    {<span>Inga bilder finns</span>}
+                    }
+
+                @foreach (Picture picture in Model.Pictures)
+                {
+                    <a href="~/uploads/images/@picture.PictureName" target="_blank"><img src="~/uploads/images/@picture.PictureName" alt="@picture.PictureName" width="50" height="50" /></a>
+                }
+            </p>
+    </section>

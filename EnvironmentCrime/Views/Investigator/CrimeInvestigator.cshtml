@@ -1,0 +1,43 @@
+﻿@{
+    @model Errand
+    Layout = "_LoginLayout";
+}
+
+@section toolbar{   <ul>
+        <li><a class="reports" asp-controller="Investigator" asp-action="StartInvestigator">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" asp-controller="Account" asp-action="Logout">Logga ut</a></li>
+
+    </ul>}
+<h2>Detaljer för ärendet</h2>
+<p class="info">Du är inloggad som handläggare</p>
+<form asp-controller="Investigator" asp-action="Save"  method="post" enctype="multipart/form-data" multiple>
+
+    <!--ComponentView-->
+    @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+    <!--End of ComponentView-->
+
+
+
+    <section id="bottomColumn">
+        <h3>Redigera ärende</h3>
+
+        <p class="label">Händelser:</p> <!--InvestigatorAction-->
+        <textarea asp-for="InvestigatorAction" rows="5" cols="60"></textarea>
+
+        <p class="label">Mer information:</p><!--InvestigatorInformation-->
+        <textarea asp-for="InvestigatorInfo" rows="5" cols="60"></textarea>
+
+        <p class="label">Prover:</p>
+        <input type="file" name="document" />
+
+        <p class="label">Ladda upp bilder:</p>
+        <input type="file" name="image" />
+
+        <p class="label">Ändring av status:</p>
+        @await Component.InvokeAsync("StatusList")
+
+        <p>
+            <input class="button" type="submit" value="Spara ändringarna" />
+        </p>
+    </section>
+</form>

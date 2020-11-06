@@ -1,0 +1,7 @@
+﻿
+@{
+    @model InvokeRequest
+}
+        <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses,"StatusId","StatusName"))">
+            <option selected="selected">Välj alla</option>
+        </select>

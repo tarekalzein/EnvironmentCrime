@@ -1,0 +1,61 @@
+﻿
+@{
+    @model Errand
+    Layout = "_LoginLayout";
+
+}
+
+@section toolbar{   <ul>
+        <li><a class="reports" asp-controller="Manager" asp-action="StartManager">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" asp-controller="Account" asp-action="Logout">Logga ut</a></li>
+
+    </ul>}
+
+<h2>Detaljer för ärendet</h2>
+<p class="info">Du är inloggad som avdelningschef</p>
+<form asp-controller="Manager" asp-action="Save">
+    <!--ComponentView-->
+    @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+    <!--End of ComponentView-->
+
+
+
+    <section id="bottomColumn">
+
+        <h3>Redigera ärende</h3>
+        <p>
+            Ange handläggare:
+            <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">
+                <option selected="selected">Välj</option>
+
+            </select>
+        </p>
+        <label asp-for="StatusId">
+            <input type="checkbox" onclick="myFunction()" id="myCheck" asp-for="StatusId" /> Ingen åtgärd:
+
+
+        </label>
+
+        <!--<input asp-for="InvestigatorInfo" id="ActionDetail" type="text" name="reason" value="Ange motivering" disabled="disabled" onfocus="this.value=''"/></p>-->
+        <input asp-for="InvestigatorInfo" id="ActionDetail" value="Ange motivering" disabled="disabled" onfocus="this.value=''" />
+        <p>
+            <input class="button" type="submit" value="Spara" />
+        </p>
+
+
+        <!--This script is to disable the textbox by default and enable it if  checkbox is checked, which I think is Cool!-->
+        <script>
+            function myFunction() {
+                var checkbox = document.getElementById("myCheck");
+                var ActionDetail = document.getElementById("ActionDetail");
+                if (checkbox.checked == true) {
+                    ActionDetail.disabled = false;
+                }
+                else {
+                    ActionDetail.disabled = true;
+                    ActionDetail.value = "Ange motivering";
+                }
+            }
+        </script>
+    </section>
+    </form>

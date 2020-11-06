@@ -1,0 +1,31 @@
+﻿
+@{
+    @model Errand
+    Layout = "_CoordinatorLoginLayout";
+}
+
+<h2>Detaljer för ärendet</h2>
+<p class="info">Du är inloggad som samordnare</p>
+<form asp-controller="Coordinator" asp-action="Save">
+    <!--ComponentView-->
+    @await Component.InvokeAsync("ErrandDetail", ViewBag.ID)
+    <!--End of ComponentView-->
+
+
+
+    <section id="bottomColumn">
+        <h3>Redigera ärende</h3>
+        <p>
+            Ange enhet:
+
+            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId","DepartmentName"))">
+                <option selected="selected">Välj alla</option>
+            </select>
+        </p>
+        <p><input class="button" type="submit" value="Spara" /></p>
+
+    </section>
+</form>
+
+
+

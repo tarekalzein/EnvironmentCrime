@@ -1,12 +1,21 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html xml: lang="sv-se" >
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    <div>
+    <div id="wrapper">
+        <header id="logo">
+            <h1>Småstad</h1>
+            <p>Kommunen där vi bryr oss om varandra</p>
+        </header><!-- End header -->
         @RenderBody()
     </div>
 </body>

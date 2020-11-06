@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = "_CoordinatorLoginLayout";
+}
+
+<h2>Din anmälan av miljöbrott</h2>
+<p class="info">Du är inloggad som samordnare</p>
+
+<p class="label">
+    Vänligen läs igenom din anmälan och se att allt är okej.<br />
+    Om något är fel, gå tillbaka och ändra. Annars välj Bekräfta.
+</p>
+<p><span class="label">Var har brottet skett någonstans?</span><br />@Model.Place</p>
+<p><span class="label">Vilken typ av brott?</span><br />@Model.TypeOfCrime</p>
+<p><span class="label">När skedde brottet?</span><br /> @Model.DateOfObservation.ToString("yyyy/MM/dd") </p>
+<p><span class="label">Ditt namn (för- och efternamn):</span><br />@Model.InformerName</p>
+<p><span class="label">Din telefon:</span><br />@Model.InformerPhone</p>
+<p><span class="label">Mer information:</span><br />@Model.Observation </p>
+<p><a button class="button" asp-controller="Coordinator" asp-action="ReportCrime">Tillbaka</a> <a button class="button" asp-controller="Coordinator" asp-action="Thanks">Bekräfta</a></p>
+

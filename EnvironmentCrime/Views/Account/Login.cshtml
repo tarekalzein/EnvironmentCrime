@@ -1,0 +1,43 @@
+﻿@{
+    @model LoginModel
+}
+
+<section id="mainColumn">
+    <h2>Inloggning för Småstads personal</h2>
+    <p class="info">En säker tjänst från Småstads IT-avdelning</p>
+
+
+
+<form asp-controller="Account" asp-action="Login" method="post">
+
+    <!--The 2 following lines are just fake inputs because chrome was considering the username field as password and suggests random password!....Not needed in our course, but it is very very annoying!
+        https://stackoverflow.com/questions/32399316/textboxusername-password-auto-fill-off-with-chrome
+        -->
+    <input style="display:none" type="text" name="fakeusernameremembered" />
+    <input style="display:none" type="password" name="fakepasswordremembered" />
+    <!--End of fake inputs-->
+
+    <p>
+        <label class="label" asp-for="UserName"></label>
+        <br />
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </p>
+    <p>
+        <label class="label" asp-for="Password"></label>
+        <br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </p>
+    <p>
+        <input type="hidden" asp-for="ReturnUrl" />
+    </p>
+    <p>
+        <input class="button" type="submit" value="Logga in" />
+    </p>
+    <div asp-validation-summary="All"></div>
+
+</form>
+
+<p>@ViewBag.AccessDenied</p>
+</section><!-- End Left -->

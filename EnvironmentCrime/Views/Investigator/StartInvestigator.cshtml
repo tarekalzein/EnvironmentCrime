@@ -1,0 +1,57 @@
+﻿
+@{
+    @model InvokeRequest
+    Layout = "_LoginLayout";
+}
+
+@section toolbar{   <ul>
+        <li><a class="reports" asp-controller="Investigator" asp-action="StartInvestigator">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" asp-controller="Account" asp-action="Logout">Logga ut</a></li>
+
+    </ul>}
+
+<h2>Ärenden</h2>
+<p class="info">Du är inloggad som handläggare</p>
+
+<form asp-controller="Investigator" asp-action="Filter" method="post">
+    <table id="managerForm">
+        <tr>
+            <td class="label">Välj status:</td>
+            <td>&nbsp;</td>
+            <td class="label">Ärendenummer:</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                @await Component.InvokeAsync("StatusList")
+            </td>
+            <td><input class="button" type="submit" value="Hämta lista" /></td>
+            <td><input asp-for="RefNumber" /></td>
+            <td><input class="button" type="submit" value="Sök" /></td>
+        </tr>
+    </table>
+</form>
+
+    <!--Nedan ser man en lista på ärenden-->
+    <table>
+        <tr>
+            <th>Ärende anmält</th>
+            <th>Ärendenummer</th>
+            <th>Miljöbrott</th>
+            <th>Status</th>
+            <th>Avdelning</th>
+            <th>Handläggare</th>
+        </tr>
+
+        @foreach (ErrandTableItem errand in ViewBag.ErrandList)
+        {
+            <tr>
+                <td>@errand.DateOfObservation.ToString("yyyy-MM-dd")</td>
+                <td><a asp-controller="Investigator" asp-action="CrimeInvestigator" asp-route-id="@errand.ErrandId">@errand.RefNumber</a></td>
+                <td>@errand.TypeOfCrime</td>
+                <td>@errand.StatusName</td>
+                <td>@errand.DepartmentName</td>
+                <td>@errand.EmployeeName</td>
+            </tr>
+        }
+    </table>
